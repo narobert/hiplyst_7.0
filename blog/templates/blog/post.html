@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Metal Maile's Concert Review Page {% endblock %}
+{% block content %}
+
+{% load comments %}
+
+<body>
+<center>
+  <div class="container"> 
+    <div style="margin-top:20px;margin-bottom:10px;">
+      <p><span style="font-size:42px;">{{post.name}}</span></p>
+      <span style="color:gray;">
+        Posted on <time datetime="{{post.time|date:"c"}}">{{post.time|date}}</time>
+      </span>	
+    </div>
+    <div id="postimg" style="position:relative;">
+      <img src="{{MEDIA_URL}}{{post.imgID.path}}">
+    </div>
+    <article>
+      <p style="background:#eeeeee;margin-top:20px;padding:10px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;">
+         {{post.dsc}}
+      </p>
+      <hr>
+    </article>
+    <article>
+      {% if user.is_authenticated %}
+      {% get_comment_form for post as form %}
+      <form action="{% comment_form_target %}" method="POST">
+        {% csrf_token %}
+        <textarea cols="40" id="id_comment" name="comment" rows="10" placeholder="Comment on this review"></textarea>
+        <div style="display:none;">{{ form.honeypot }}</div>
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input type="hidden" name="next" value="/{{post.name}}" />
+        <br>
+        <p><button class="btn btn-large btn-primary" id="id_submit" type="submit">Post</button></p>
+      </form>
+      {% else %}
+      <p style="margin-bottom:0px;">You must <a href="{% url 'django.contrib.auth.views.login' %}">login</a> to post comments.</p>
+      {% endif %}
+      <hr>
+      {% get_comment_count for post as comment_count %}
+      {% render_comment_list for post %}
+    </article>
+  </div>
+</center>
+</body>
+
+{% endblock %}

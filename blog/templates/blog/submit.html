@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Metal Maile's Concert Review Page {% endblock %}
+{% block content %}
+
+<div class="container">
+<center>
+  <div class="hero-unit" style="height:370px;">
+    <p style="text-align:left;margin-left:30px;"><b>Review</b> a concert you went to!</p>
+    {% if form.errors %}
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Upload failed.</strong> Must be a valid image.
+    </div>
+    {% endif %}
+    <form method="POST" action="/submit/" enctype="multipart/form-data"> 
+      {% csrf_token %}
+      <label for="id_title"></label>
+      <input id="id_title" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="title" maxlength="50" placeholder="Artist name" required>
+      <label for="id_description"></label>
+      <input id="id_description" name="description" type="text" rows="3" style="margin-bottom:5px;height:32px;width:300px;" placeholder="Description" required>
+      <label for="id_image" style="margin-top:20px;"></label>
+      <input id="id_image" type="file" style="margin-bottom:20px;height:32px;width:300px;" name="image" required>
+      <p><button class="btn btn-large btn-primary" style="width:312px;" name="submit" type="submit">Submit</button></p>
+    </form>
+  </div>
+</center>
+</div>
+
+{% endblock %}

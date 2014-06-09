@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} Metal Maile's Concert Review Page {% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="span10">
+      {% for post in posts reversed %}
+      <div class="onebox">
+        <a href="/{{post.name}}"><img id="lightbox_trigger_{{ post.id }}" src="{{MEDIA_URL}}{{post.imgID.path}}" ></a>
+        <div class="box-inside" style="top:90px;" id="box_inside_{{post.id}}">{{post.name}}</div>
+      </div>
+      <script>
+        $(document).ready(function(){
+          $('#lightbox_trigger_{{post.id}}').hover(function() {
+            $('#box_inside_{{post.id}}').show();
+          }, function() {
+            $('#box_inside_{{post.id}}').hide();
+          });
+        });
+      </script>
+      {% endfor %}
+      <div class="hero-unit" style="padding-left:21px;padding-right:21px;padding-top:25px;margin-left:890px;margin-bottom:0px;width:23%;height:520px;">
+        <p style="text-align:center;"><b>Metal Maile's Concert Review Page</b></p>
+        <hr>
+        <p style="text-align:center;"><small><small>Where she writes about concerts.</small></small></p>
+        <p style="text-align:center;"><small><small>And posts really cool pictures.</small></small></p>
+        <hr>
+        {% if user.is_authenticated %}
+        <p style="text-align:center;"><small><small>Click on pics to post comments!</small></small></p>
+        {% else %}
+        <p style="text-align:center;"><small><small>Register <a href="{% url 'register' %}">here</a> to post comments.</small></small></p>
+        {% endif %}
+        <hr>
+        <img src="{{STATIC_URL}}img/maile_sunset.jpg" width="223" height="160">
+        <p style="text-align:center;margin-top:15px;"><small><small><small>&copy; 2014. Built with love by Nick Roberts.</small></small></small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Metal Maile's Concert Review Page {% endblock %}
+{% block content %}
+
+<div class="container">
+<center>
+  <div class="hero-unit" style="height:370px;">
+    <p style="text-align:left;margin-left:30px;"><b>Register</b> a new user here!</p>
+    {% if form.errors %}
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Sign up failed.</strong> Username taken.
+    </div>
+    {% endif %}
+    <form method="POST" action="/register/" enctype="multipart/form-data"> 
+      {% csrf_token %}
+      <label for="id_username"></label>
+      <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="20" placeholder="Username" required>
+      <label for="id_email"></label>
+      <input id="id_email" name="email" type="email" style="margin-bottom:5px;height:32px;width:300px;" placeholder="Email" required>
+      <label for="id_password"></label>
+      <input id="id_password" type="password" style="margin-bottom:10px;height:32px;width:300px;" name="password" maxlength="40" placeholder="Password" required>
+      <p><button class="btn btn-large btn-primary" style="width:312px;" name="submit" type="submit">Register</button></p>
+    </form>
+  </div>
+</center>
+</div>
+
+{% endblock %}
