@@ -29,8 +29,8 @@
         {% csrf_token %}
         <textarea cols="40" id="id_comment" name="comment" rows="10" placeholder="Comment on this review"></textarea>
         <div style="display:none;">{{ form.honeypot }}</div>
-        <!--{{ form.content_type }}
-        {{ form.object_pk }}-->
+        {{ form.content_type }}
+        {{ form.object_pk }}
         {{ form.timestamp }}
         {{ form.security_hash }}
         <input type="hidden" name="next" value="/{{post.name}}" />
