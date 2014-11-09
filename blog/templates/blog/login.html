@@ -1,40 +1,126 @@
-{% extends 'base.html' %}
-{% block title %} Nick & Maile's Concert Review and Photos page {% endblock %}
-{% block content %}
+{% extends "base.html" %}
 
-<div class="container">
-<center>
-  <div class="hero-unit" style="height:370px;">
-    <p style="text-align:left;margin-left:30px;"><b>Welcome.</b> Please login.</p>
-    {% if form.errors %}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Login failed.</strong> Incorrect username or password was entered.
+{% block css %}
+  <link type="text/css" href="/css/landing.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+  <!-- Carousel large ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/images/guitar.jpg">
+          <div class="transparent_box"></div>
+            <div class="not_transparent">
+              <center>
+              <div class="alert">Incorrect username or password.</div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h1></h1>
+                <br>
+                <br>   
+                <br>
+              </center>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.carousel -->
+
+  <!-- Carousel large ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
+      <div class="carousel-inner">
+        <div class="item active" style="background: url('../images/white.jpg');">
+          <div class="transparent_box"></div>
+            <div class="not_transparent">
+              <form method="POST" action="/register/" enctype="multipart/form-data" style="margin-top:55px;"> 
+                <div>
+                  <label for="id_first_name"></label>
+                  <input id="id_first_name" type="text" style="float:left;margin-bottom:5px;height:32px;width:140px;margin-left:475px;margin-right:6px;" name="fname" maxlength="20" placeholder="First name" required>
+                  <label for="id_last_name"></label>
+                  <input id="id_last_name" type="text" style="margin-bottom:5px;height:32px;width:140px;" name="lname" maxlength="20" placeholder="Last name" required>
+                </div>
+                <center>
+                <label for="id_username"></label>
+                <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="20" placeholder="Username" required>
+                <label for="id_email"></label>
+                <input id="id_email" name="email" type="email" style="margin-bottom:5px;height:32px;width:300px;" placeholder="Email" required>
+                <label for="id_password"></label>
+                <input id="id_password" type="password" style="margin-bottom:5px;height:32px;width:300px;" name="password" maxlength="40" placeholder="Password" required>
+                <label for="id_image" style="margin-top:20px;"></label>
+                <input id="id_image" type="file" style="margin-bottom:5px;height:32px;width:300px;" name="image" required>
+                <label for="id_artist"></label>
+                <input id="id_artist" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="artist" maxlength="100" placeholder="Favorite artists" required>
+                <label for="id_genre"></label>
+                <input id="id_genre" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="genre" maxlength="100" placeholder="Favorite genres" required>
+                <label for="id_concert"></label>
+                <input id="id_concert" type="text" style="margin-bottom:10px;height:32px;width:300px;" name="concert" maxlength="100" placeholder="Favorite concerts" required>
+                <p><button class="btn btn-large btn-primary" style="width:314px;background:#0088cc;border:none;border-radius:4px;" name="submit" type="submit">Register</button></p>
+              </form>   
+              </center>
+          </div>
+        </div>
+      </div>
     </div>
-    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-      {% csrf_token %}
-      <label for="id_username"></label>
-      <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="254" placeholder="Username" required>
-      <label for="id_password"></label>
-      <input id="id_password" type="password" style="margin-bottom:10px;height:32px;width:300px;" name="password" maxlength="4096" placeholder="Password" required>
-      <p><button class="btn btn-large btn-primary" style="width:312px;" name="submit" type="submit">Sign in</button></p>
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
-    {% else %}
-    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-      {% csrf_token %}
-      <label for="id_username"></label>
-      <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="254" placeholder="Username" required>
-      <label for="id_password"></label>
-      <input id="id_password" type="password" style="margin-bottom:10px;height:32px;width:300px;" name="password" maxlength="4096" placeholder="Password" required>
-      <p><button class="btn btn-large btn-primary" style="width:312px;margin-bottom:5px;" name="submit" type="submit">Sign in</button></p>
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
-    <p><div class="round-button">Or</div></p>
-    <p><a href="{% url 'register' %}"></p><button class="btn btn-large btn-primary" style="width:312px;margin-top:5px;">Register</button></a></p>
-    {% endif %}
-  </div>
-</center>
-</div>
 
+    <!-- Carousel large ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/images/one.jpg">
+          <div class="transparent_box"></div>
+            <div class="not_transparent">
+              <center>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h1></h1>
+                <br>
+                <br>   
+                <br>
+              </center>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel large ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
+      <div class="carousel-inner">
+        <div class="item active" style="background: url('../images/bg-lion.jpg');">
+          <center>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h1></h1>
+            <br>
+            <br>   
+            <br>
+          </center>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block additional_block %}
+{% endblock %}
+
+{% block extra-js %}
 {% endblock %}

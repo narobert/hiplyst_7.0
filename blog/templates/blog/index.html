@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 {% block title %} Nick & Maile's Concert Review and Photos page {% endblock %}
+
+{% block css %}
+  <link href="/css/landing.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block content %}
 
-<div class="container">
+  {% if user.is_authenticated %}
+  <div class="container">
   <div class="row">
     <div class="span10">
       {% for post in posts reversed %}
       <div class="onebox">
-        <a href="/{{post.name}}"><img id="lightbox_trigger_{{ post.id }}" src="{{MEDIA_URL}}{{post.imgID.path}}" ></a>
+        <a href="/{{post.name}}"><img id="lightbox_trigger_{{ post.id }}" src="{{STATIC_URL}}{{post.imgID.path}}" ></a>
         <div class="box-inside" style="top:90px;" id="box_inside_{{post.id}}">{{post.name}}</div>
       </div>
       <script>
@@ -20,7 +26,7 @@
         });
       </script>
       {% endfor %}
-      <div class="hero-unit" style="padding-left:21px;padding-right:21px;padding-top:25px;margin-left:890px;margin-bottom:0px;width:23%;height:520px;">
+      <!--<div class="hero-unit" style="padding-left:21px;padding-right:21px;padding-top:25px;margin-left:890px;margin-bottom:0px;width:23%;height:520px;">
         <p style="text-align:center;"><b>Nick & Maile's Concert Review and Photos page</b></p>
         <hr>
         <p style="text-align:center;"><small><small>Where we write about concerts.</small></small></p>
@@ -34,9 +40,84 @@
         <hr>
         <img src="{{STATIC_URL}}img/maile_sunset.jpg" width="223" height="160">
         <p style="text-align:center;margin-top:15px;"><small><small><small>&copy; 2014. Built with love by Nick Roberts.</small></small></small></p>
-      </div>
+      </div>-->
     </div>
   </div>
-</div>
+  </div>
+
+{% else %}
+  <!-- Carousel ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/images/bg-lion.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <!--<h2>New to hiplyst?</h2>
+              <p><small>Create playlists from our vast supply of music and share with friends.</small></p>-->
+              <p><a class="btn btn-large btn-primary" href="#signUpModal" data-toggle="modal" role="button" style="background:#ffffff;color:black;border:none;"><b>Sign up today</b></a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/images/bg-lion-warm.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <!--<p>Receive rep points if you make good playlists.</p>-->
+              <p><a class="btn btn-large btn-primary" href="#" role="button" style="background:#ffffff;color:black;border:none;"><b>Learn more</b></a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/images/bg-lion-cold.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <!--<h1>But most importantly.</h1>
+              <p>Discover new music.</p></p>-->
+              <p><a class="btn btn-large btn-primary" href="#" role="button" style="background:#ffffff;color:black;border:none;"><b>Browse gallery</b></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><img src="/images/prev.png" style="margin-top:115%;"></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><img src="/images/next.png" style="margin-top:115%;"></a>
+    </div><!-- /.carousel -->
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="SignUpLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="SignUpLabel">Sign Up</h3>
+    </div>
+    <div class="modal-body">
+    <form method="POST" action="/register/" enctype="multipart/form-data"> 
+      {% csrf_token %}
+      <div>
+        <label for="id_first_name"></label>
+        <input id="id_first_name" type="text" style="float:left;margin-bottom:5px;height:32px;width:140px;margin-right:6px;" name="fname" maxlength="20" placeholder="First name" required>
+        <label for="id_last_name"></label>
+        <input id="id_last_name" type="text" style="margin-bottom:5px;height:32px;width:140px;" name="lname" maxlength="20" placeholder="Last name" required>
+      </div>
+      <label for="id_username"></label>
+      <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="20" placeholder="Username" required>
+      <label for="id_email"></label>
+      <input id="id_email" name="email" type="email" style="margin-bottom:5px;height:32px;width:300px;" placeholder="Email" required>
+      <label for="id_password"></label>
+      <input id="id_password" type="password" style="margin-bottom:10px;height:32px;width:300px;" name="password" maxlength="40" placeholder="Password" required>
+      <p><button class="btn btn-large btn-primary" style="width:313px;" name="submit" type="submit">Register</button></p>
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+  </div>
+
+{% endif %}
 
 {% endblock %}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hiplyst | Shared music playlists, ranked by the community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/hiplyst.css" rel="stylesheet" type="text/css">
+
+    <style>
+      body {
+        padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
+        background: url('../images/boat_darker.jpg') no-repeat center fixed;
+        -webkit-backface-visibility: hidden;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+      #searchbox {
+        margin-top: 15px;
+        margin-left: 14px;
+        display: block;
+      }
+        #searchbox:hover {
+          color: white;
+        }
+      .ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: default;
+      }
+      .ui-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+        width: 54%;
+        height: 205px;
+	display: block;
+	outline: none;
+        border: solid 1px #252525;
+      }
+      .ui-menu .ui-menu {
+	position: absolute;
+      }
+      .ui-menu .ui-menu-item {
+	float: left;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        margin-left: 3px;
+        margin-right: 3px;
+        background: #0081c2;
+	padding: 3px 1em 3px 1em;
+	cursor: pointer;
+	min-height: 0; 
+      }
+      .ui-widget {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+      }
+      .ui-widget .ui-widget {
+	font-size: 12px;
+      }
+      .ui-widget-content {
+	background: black;
+      }
+      .ui-widget-content a {
+	color: white;
+      }
+    </style>
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/img/logo_small.png">
+    <link rel="shortcut icon" href="/static/img/logo_small.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="/#home" style="color:#ffffff;text-decoration:none;" onclick="gui.activateTab('home');">hip<font face="cursive" style="color:#f90;">lyst</font></a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">| {{user.username}}</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/">Rep points</a></li>
+                  <li><a href="/#user" style="none"><div class="view-my-profile menu-link" onclick="gui.activateTab('user');">View my profile</div></a></li>
+                  <li class="divider"></li>
+                  <li><a><div class="user-settings menu-link" style="cursor:pointer;">Settings</div></a></li>
+                  <li><a href="/logout/">Log out</a></li>
+                </ul>
+              </li>
+            </ul>	
+            <ul class="nav">
+              
+              <li><a onclick="gui.activateTab('playlists');" style="cursor:pointer;">Create mix</a></li>
+              <li><div id="searchbox">
+                <input type="text" name="query" id="top-search-filter" placeholder="Search" style="display:none;width:215px;background:black;color:white;">
+              </div></li>
+
+              <div id="top-controls">
+                <div id="top-controls-prev"><img src="/images/prev_small.png"></div>
+                <div id="top-controls-play" class="playbutton-play"></div>
+                <div id="top-controls-next"><img src="/images/prev_big.png"></div>
+              </div>
+
+              <div style="min-height:0px;">
+
+                <div id="top-info">
+                  <div id="top-info-title"></div>
+                  <div id="top-info-artist"></div>
+
+                  <div id="top-info-progress">
+                    <div id="top-info-progress-left_time"></div>
+                    <div id="top-info-progress-slider">
+                      <div style="position:absolute;left:-1px;right:8px;">
+                        <div class="ui-slider-handle"></div>
+                      </div>
+                      <div id="loading_bar"></div>
+                    </div>
+                    <div id="top-info-progress-right_time"></div>
+                  </div>
+
+                  <div id="top-controls">
+                    <div id="top-controls-volume">
+                      <li class="dropdown" style="margin-top:54px;">
+                        <a href="#" data-toggle="dropdown" id="volume_slider-softer"><img src="/images/louder_white.png"></a>
+                        <ul class="dropdown-menu" style="padding-left:11px;padding-top:11px;padding-bottom:11px;padding-right:16px;min-width:65px;margin-left:-1px;">
+                          <div id="volume_slider">
+                            <div style="position:relative;width:55px;">
+                              <div class="ui-slider-handle"></div>
+                            </div>
+                          </div>
+                        </ul>
+                      </li>
+                    </div>
+                  </div>
+                  
+                </div>
+                  <div id="top-controls-nowplaying" onclick="$('#nowplaying_list').toggle(); event.preventDefault();">
+                    <img src="/images/list_white.png" alt="!" />
+                  </div>
+              </div>
+
+              <div id="nowplaying_list">
+                <div id="nowplaying_list-header">
+                  <strong>Now playing</strong>
+                  <div id="nowplaying-clear" title="Clean"></div>
+                  <div id="shuffle" title="Mix"></div>
+                </div>
+                <div id="nowplaying_list-list"></div>
+              </div>
+
+           </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<body class="home">-->
+    <div id="tab-user" class="tab" style="display: none;">
+      {% include "modules/user.html" %}
+    </div>
+    <!--</body>-->
+
+    <div id="tab-playlists" class="tab" style="display: none;">
+      {% include "modules/playlists.html" %}
+    </div>
+
+    <div id="tab-profile" class="tab" style="display: none;">
+      {% include "modules/profile.html" %}
+    </div>
+
+    <div id="vk_api_transport" style="display: none;"></div>
+
+    <div style="display: none;">
+      <div id="access_token">{{ACCESS_TOKEN}}</div>
+    </div>
+    <div class='sidebar'>
+      <center><p style="height:34px;color:white;background:black;padding-top:15px;border-bottom:1px solid #252525;font-size:17px;margin-bottom:0px;"><font face="cursive"><span id="playlist_name"></span></font></p></center>
+      <div id="playlist_tracks" class="scroll_panel sortable"></div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px">
+          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+            <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
+              <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">HOT</p>
+              <div id="playlists_hot_sidebar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px">
+          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+            <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
+              <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">NEW</p>
+              <div id="playlists_new_sidebar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px">
+          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+            <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
+              <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">TRENDING</p>
+              <div id="playlists_trending_sidebar"></div>
+              <!-- PUT IN FILTER BY GENRE, PLAYLIST NAME -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End of filter -->
+
+    <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px;">
+          <div class="sidebar_view" style="height:60px;width:869px;padding-left:27px;margin-bottom:0px;background:black;border:solid 1px #252525;">
+            <p style="color:#777777;padding-top:20px;"><small>Hiplyst &copy; 2014 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="color:white;">About &nbsp;|&nbsp; Team &nbsp;|&nbsp; Contact us &nbsp;|&nbsp; How we rank &nbsp;|&nbsp; FAQ &nbsp;|&nbsp; Licensing &nbsp;|&nbsp; Copyright</font></small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <br>
+
+    <!-- Le javascript -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/bootstrap-dropdown.js"></script>
+
+    <script type="text/javascript" src="http://vkontakte.ru/js/api/openapi.js" charset="windows-1251"></script>
+    <script type="text/javascript" src="/js/frameworks/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/frameworks/jquery-ui-1.8.4.custom.min.js"></script>
+    <script type="text/javascript" src="/js/frameworks/soundmanager2.js"></script>
+    <script type="text/javascript" src="/js/frameworks/mustache.js"></script>
+
+    <!-- Main -->
+    <script type="text/javascript" src="/js/main.js?v=3.0.9"></script>
+
+    <!-- Filters -->
+    <script type="text/javascript" src="/js/classes/Filters.js?v=3.0.9"></script>
+
+    <!-- Tracks -->
+    <script type="text/javascript" src="/js/classes/Tracks/Track.js?v=3.0.9"></script>
+
+    <!-- Lists -->
+    <script type="text/javascript" src="/js/classes/Lists/AbstractList.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Lists/NowPlayingList.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Lists/MusicSearchList.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Lists/UserPlayList.js?v=3.0.9"></script>
+
+    <!-- Search engines -->
+    <script type="text/javascript" src="/js/classes/Search/AbstractSearchEngine.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Search/VKSearchEngine.js?v=3.0.9"></script>
+
+    <!-- Controllers -->
+    <script type="text/javascript" src="/js/classes/CoversController.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/ListController.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/PlaybackController.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/ScrobblerController.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/SearchController.js?v=3.0.9"></script>
+
+    <!-- Main -->
+    <script type="text/javascript" src="/js/classes/Gui/UserGui.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Gui/PlaylistsGui.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Gui/HomeGui.js?v=3.0.9"></script>
+
+    <script type="text/javascript" src="/js/classes/Gui/ListGui.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Gui.js?v=3.0.9"></script>
+    <script type="text/javascript" src="/js/classes/Player.js?v=3.0.9"></script>
+
+  </body>
+</html>

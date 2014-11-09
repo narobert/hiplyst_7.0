@@ -1,13 +1,12 @@
 from django import forms
 from django.forms.widgets import PasswordInput
 from django.contrib.auth.models import User
-
-class UploadForm(forms.Form):
-  title = forms.CharField(max_length=50)
-  description = forms.CharField()
-  image = forms.ImageField()
 	
 class UserForm(forms.Form):
+  image = forms.ImageField()
+  artist = forms.CharField(max_length=100)
+  genre = forms.CharField(max_length=100)
+  concert = forms.CharField(max_length=100)
   username = forms.CharField(max_length=20)
   email = forms.EmailField()
   password = forms.CharField(widget=PasswordInput, max_length=40)

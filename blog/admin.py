@@ -1,13 +1,10 @@
 from django.contrib import admin
-from blog.models import Post, Image
+from blog.models import AccessTokens, Image, Profile
 
-# Register your models here.
-
-class PostAdmin(admin.ModelAdmin):
-  list_display = ['name', 'dsc']
-  search_fields = ['name', 'dsc', 'time']
-  date_hierarchy = 'time'
-  save_on_top = True
-		
-admin.site.register(Post, PostAdmin)
 admin.site.register(Image)
+admin.site.register(Profile)
+
+class AccessTokensAdmin(admin.ModelAdmin):
+  list_display = ('token', 'user_id', 'bad_times', 'time', 'last_access_time')
+
+admin.site.register(AccessTokens, AccessTokensAdmin)

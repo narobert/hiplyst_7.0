@@ -1,0 +1,1450 @@
+/**
+ * Sidebar - fixed
+ */
+
+.sidebar {
+  width: 270px;
+  height: 100%;
+  position: fixed;
+  z-index: 110;
+  top: 60px;
+  right: 0px;
+  background: black;
+  border-left: solid 1px #252525;
+}
+
+/**
+ * SoundManager 2 + useFlashBlock
+ * ------------------------------
+ * Flash positioning and flashblock / clicktoflash handling
+ */
+
+#sm2-container {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  _overflow: hidden;
+}
+
+#sm2-container object,
+#sm2-container embed {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+}
+
+#sm2-container.swf_timedout {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+#sm2-container.swf_timedout,
+#sm2-container.swf_timedout object,
+#sm2-container.swf_timedout embed {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+#sm2-container.swf_unblocked {
+  width: 1px;
+  height: 1px;
+}
+
+#sm2-container.swf_loaded object,
+#sm2-container.swf_loaded embed,
+#sm2-container.swf_unblocked object,
+#sm2-container.swf_unblocked embed {
+  left: -9999em;
+  top: -9999em;
+}
+
+#sm2-container.swf_error {
+  display: none;
+}
+
+#sm2-container.high_performance,
+#sm2-container.high_performance.swf_timeout {
+  position: absolute;
+  position: fixed;
+}
+
+#sm2-container.high_performance {
+  overflow: hidden;
+  _top: -9999px; 
+  _left: -9999px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 99; 
+}
+
+#sm2-container.high_performance.swf_loaded,
+#sm2-container.high_performance.swf_unblocked {
+  z-index: auto;
+}
+
+#sm2-container.high_performance.swf_loaded,
+#sm2-container.high_performance.swf_unblocked,
+#sm2-container.high_performance.swf_unblocked object,
+#sm2-container.high_performance.swf_unblocked embed {
+  position: absolute;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 8px;
+  width: 8px;
+}
+
+#sm2-container.high_performance.swf_loaded {
+  top: auto;
+  bottom: 0px;
+  left: 0px;
+}
+
+#sm2-container.high_performance.swf_loaded object,
+#sm2-container.high_performance.swf_loaded embed,
+#sm2-container.high_performance.swf_unblocked object,
+#sm2-container.high_performance.swf_unblocked embed {
+  left: auto;
+  top: auto;
+}
+
+#sm2-container.high_performance.swf_timedout {
+  z-index: 99; 
+}
+
+.white {
+  color: #EEEEEE;
+}
+
+#top-controls {
+  position: relative;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+    #top-controls-prev {
+      position: absolute;
+      top: 22px;
+      left: 366px;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+        #top-controls-prev:hover {
+          opacity: 0.8;
+        }
+
+    #top-controls-play {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      opacity: 1;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+
+        #top-controls-play:hover {
+            opacity: 0.8;
+        }
+
+        .playbutton-play {
+            top: 12px;
+            left: 385px;
+            background-image: url('../images/play_gooder.png');
+        }
+
+        .playbutton-pause {
+            top: 12px;
+            left: 385px;
+            background-image: url('../images/pause_good.png');
+        }
+
+    #top-controls-next {
+      position: absolute;
+      top: 22px;
+      left: 423px;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+        #top-controls-next:hover {
+          opacity: 0.8;
+        }
+
+    #top-controls-nowplaying {
+      cursor: pointer;
+      position: absolute;
+      top: 21px;
+      left: 779px;
+      opacity: 1;
+    }
+
+        #top-controls-nowplaying:hover {
+          opacity: 0.8;
+        }
+
+    #top-controls-volume {
+      width: 70px;
+      height: 20px;
+    }
+
+        #volume_slider {
+          width: 65px;
+          clear: both;
+          height: 10px;
+          -moz-border-radius: 10px;
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          background-color: #FFFFFF;
+          -moz-box-shadow: inset 0 0 1px #222222;
+          -webkit-box-shadow: inset 0 0 1px #222222;
+          box-shadow: inset 0 0 1px #222222;
+        }
+
+            #volume_slider .ui-slider-handle {
+              position: absolute;
+              top: -3px;
+              width: 15px;
+              height: 15px;
+              border-radius: 10px;
+              -moz-border-radius: 10px;
+              -moz-box-shadow: inset 0 0 1px #222222;
+              -webkit-box-shadow: inset 0 0 1px #222222;
+              box-shadow: inset 0 0 1px #222222;
+              background-color: #FFFFFF;
+            }
+
+            #volume_slider .ui-slider-handle:active {
+              background-color: #FFFFFF;
+            }
+
+            #volume_slider-softer {
+              position: absolute;
+              top: -43px;
+              left: 10px;
+              cursor: pointer;
+              opacity: 1;
+            }
+
+                #volume_slider-softer:hover {
+                  opacity: 0.8;
+                }
+
+    #top-info {
+      position: absolute;
+      width: 350px;
+      top: 5px;
+      left: 455px;
+      right: 0px;
+      bottom: 5px;
+      border: solid 1px #cccccc;
+      border-radius: 3px;
+
+      background: black; /* Old browsers */
+      background: -moz-linear-gradient(top,  black 0%, black 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,black), color-stop(100%,black)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  black 0%,black 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  black 0%,black 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  black 0%,black 100%); /* IE10+ */
+      background: linear-gradient(top bottom,  black 0%,black 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='black', endColorstr='black',GradientType=0 ); /* IE6-9 */
+    }
+
+        #top-info-title {
+          position: absolute;
+          top: 2px;
+          left: 20px;
+          right: 20px;
+          text-align: center;
+          font-size: 12px;
+          font-weight: bold;
+          white-space: nowrap;
+          overflow: hidden;
+          color: white;
+        }
+
+        #top-info-artist {
+          position: absolute;
+          top: 17px;
+          left: 20px;
+          right: 20px;
+          text-align: center;
+          font-size: 11px;
+          color: #999999;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        #top-info-progress {
+          position: absolute;
+          bottom: 1px;
+          left: 55px;
+          right: 50px;
+          /*left: 140px;
+          right: 145px;*/
+          height: 15px;
+          font-size: 10px;
+        }
+
+            #top-info-progress-slider {
+              display: none;
+              position: absolute;
+              top: 7px;
+              bottom: 1px;
+              left: 40px;
+              right: 40px;
+              height: 2px;
+              -moz-border-radius: 5px;
+              border-radius: 5px;
+              background-color: #777777;
+            }
+
+                #loading_bar {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 2px;
+                  width: 50%;
+                  -moz-border-radius: 5px;
+                  border-radius: 5px;
+                  z-index: 10;
+                  background-color: #0081c2;
+                }
+
+                #top-info-progress-slider .ui-slider-handle {
+                  position: absolute;
+                  top: -2px;
+                  width: 6px;
+                  height: 6px;
+                  border-radius: 10px;
+                  -moz-border-radius: 10px;
+                  background-color: white;
+                  z-index: 20;
+                }
+
+            #top-info-progress-left_time {
+              position: absolute;
+              top: -3px;
+              left: 0;
+              width: 30px;
+              text-align: right;
+              color: #999999;
+            }
+
+            #top-info-progress-right_time {
+              position: absolute;
+              top: -3px;
+              right: 0;
+              width: 30px;
+              color: #999999;
+            }
+
+    #top-search {
+      position: absolute;
+    }
+
+        #top-search input {
+          border: solid 1px #EEEEEE;
+          box-shadow: 0 0px 1px #222222 inset;
+          border-radius: 10px;
+          padding: 5px;
+          font-size: 11px;
+          width: 180px;
+        }
+
+    #top-buttons {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      width: 100px;
+      height: 20px;
+    }
+
+        #top-buttons img {
+          float: right;
+          margin: 3px;
+          opacity: 1;
+        }
+
+        #top-buttons img:hover {
+          opacity: 0.8;
+        }
+
+#nowplaying_list {
+  display: none;
+  position: absolute;
+  top: 61px;
+  left: 554px;
+  width: 250px;
+  height: 447px;
+  background-color: black;
+  border-bottom: 1px solid #252525;
+  border-right: 1px solid #252525;
+  border-left: 1px solid #252525;
+  z-index: 200;
+}
+
+    #nowplaying_list-header {
+      padding: 5px;
+      color: black;
+      border-bottom: solid 1px #252525;
+
+      background: #ffffff; /* Old browsers */
+      background: -moz-linear-gradient(top,  #ffffff 0%, #ffffff 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #ffffff 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #ffffff 0%,#ffffff 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #ffffff 0%,#ffffff 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  #ffffff 0%,#ffffff 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    }
+
+        #nowplaying_list-header strong {
+          font-size: 12px;
+          font-weight: normal;
+          padding-left: 3px;
+        }
+
+        #nowplaying_list-header #shuffle {
+          float: right;
+          width: 16px;
+          height: 16px;
+          margin-top: 2px;
+          background: transparent url("../images/icons/shuffle.png") no-repeat 50% 50%;
+          cursor: pointer;
+          opacity: 0.8;
+        }
+
+        #nowplaying_list-header #shuffle:hover {
+          opacity: 0.5;
+        }
+
+        #nowplaying-clear {
+          float: right;
+          width: 16px;
+          height: 16px;
+          margin-top: 2px;
+          background: transparent url("../images/icons/delete.png") no-repeat 50% 50%;
+          cursor: pointer;
+          opacity: 1;
+        }
+
+        #nowplaying-clear:hover {
+          opacity: 0.5;
+        }
+
+    #nowplaying_list-list {
+      position: absolute;
+      top: 31px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+        #nowplaying_list-list .inactive {
+          opacity: 1;
+        }
+
+        .nowplaying_list-item {
+          position: relative;
+          width: 100%;
+          height: 52px;
+        }
+
+            .nowplaying_list-item .item-buttons {
+              position: absolute;
+              top: 0;
+              left: 0;
+              bottom: 0;
+              width: 20px;
+              display: none;
+            }
+
+                .nowplaying_list-item .item-buttons img {
+                  margin: 20px 6px;
+                  cursor: pointer;
+                }
+
+                .nowplaying_list-item:hover .item-buttons {
+                  display: block;
+                }
+
+            .nowplaying_list-item .item-clickable {
+              position: absolute;
+              top: 5px;
+              left: 25px;
+              width: 220px;
+              height: 41px;
+              cursor: pointer;
+            }
+
+                .nowplaying_list-item .item-img {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 40px;
+                  height: 41px;
+                  background-color: #252525;
+                  background-position: 50% 50%;
+                  background-size: cover;
+                  border: solid 1px #252525;
+                }
+
+                .nowplaying_list-item .item-title {
+                  position: absolute;
+                  top: 3px;
+                  font-weight: bold;
+                  font-size: 12px;
+                  left: 52px;
+                  width: 170px;
+                  color: white;
+                  white-space: nowrap;
+                  overflow: hidden;
+                }
+
+                .nowplaying_list-item .item-artist {
+                  position: absolute;
+                  top: 18px;
+                  left: 52px;
+                  width: 170px;
+                  color: #999999;
+                  font-size: 11px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                }
+
+.search {
+  padding-bottom: 10px;
+  clear: both;
+}
+
+    .search h1 {
+      font-size: 22px;
+    }
+
+    .search-query {}
+
+    .search-button {
+      font-size: 16px;
+      position: absolute;
+      margin-left: -40px;
+      margin-top: 26px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      background: #ff8800;
+      border: none;
+      border-radius: 4px;
+    }
+
+        .search-button:hover {
+          opacity: 0.6;
+        }
+
+    .search-params {
+      margin-top: 5px;
+      margin-left: 2px;
+      color: #333333;
+      width: 100px;
+      opacity: 0.9;
+      float: left;
+    }
+
+        .search-params:hover {
+          opacity: 1;
+        }
+
+    .search-links {
+      margin: 5px 10px;
+      width: 23%;
+      float: left;
+      text-align: right;
+    }
+
+        .search-links a {
+          text-decoration: none;
+          border-bottom: dashed 1px #333;
+          margin-left: 20px;
+        }
+
+#artist-info {
+  padding: 0 20px 20px;
+  clear: both;
+  overflow: hidden;
+}
+
+    #artist-info-name {
+      font-size: 20px;
+      padding-bottom: 0;
+    }
+
+        #artist-info-name a {
+          color: #111;
+        }
+
+    #artist-info-subtitle {
+      font-size: 11px;
+      color: #A9A9A9;
+      margin-bottom: 10px;
+    }
+
+    #artist-info-similar {
+      position: absolute;
+      top: 30px;
+      left: 65%;
+      width: 35%;
+      height: 290px;
+      overflow: hidden;
+    }
+
+        .simular-artist {
+          float: left;
+          width: 180px;
+          height: 30px;
+          padding: 10px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+            .simular-artist-img {
+              width: 30px;
+              height: 30px;
+              margin-right: 10px;
+              float: left;
+              background-repeat: no-repeat;
+              background-position: 50% 50%;
+              background-size: cover;
+            }
+
+            .simular-artist-title {
+              float: left;
+              width: 130px;
+              margin-top: 8px;
+              height: 30px;
+              overflow: hidden;
+              color: #444;
+              white-space: nowrap;
+            }
+
+            .simular-artist:hover .simular-artist-title {
+              color: #111;
+            }
+
+.cover-view {
+  width: 100%;   
+  clear: both;
+  overflow: hidden;
+}
+
+    .cover {
+      display: block;
+      float: left;
+      width: 200px;
+      height: 240px;
+      margin: 20px 10px 0 20px;
+      cursor: pointer;
+    }
+
+        .cover-image {
+          width: 200px;
+          height: 200px;
+          background: #EEE;
+          box-shadow: 1px 1px 7px #9D9489;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .cover:hover .cover-image {
+          box-shadow: 1px 1px 10px #9D9489;
+        }
+
+        .cover-title {
+          padding: 7px 0;
+        }
+
+            .cover-title span {
+              font-weight: bold;
+            }
+
+            .cover-title small {
+              color: #A9A9A9;
+              font-size: 11px;
+            }
+
+
+#cover-info {
+  position: relative;
+  top: 20px;
+  width: 100%;
+  height: 300px;
+  clear: both;
+  border-top: solid 1px #CFCFCF;
+  box-shadow: 1px 1px 3px #CFCFCF inset;
+  background-color: #E8E8E8;
+  margin-bottom: 30px;
+}
+
+    #cover-info-arrow {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -10px;
+      left: 100px;
+      width: 20px;
+      height: 20px;
+      background-color: #E8E8E8;
+      border-right: 1px solid #CFCFCF;
+      border-bottom: 1px solid #CFCFCF;
+      -moz-transform: rotate(-135deg);
+      -webkit-transform: rotate(-135deg);
+      -o-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+    }
+
+    #cover-info-bgcover {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 300px;
+      background: 50% 50%;
+      background-size: cover;
+      opacity: 0.2;
+      -webkit-filter: grayscale(100%);
+    }
+
+    #cover-info-inside {
+      margin: 20px;
+    }
+
+    #cover-info-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #cover-info-artist {
+      color: #555;
+    }
+
+    #cover-info-tracks {
+      margin-top: 5px;
+      margin-right: 300px;
+      height: 210px;
+      min-width: 570px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+        #cover-info-tracks .track {
+          width: 250px;
+          float: left;
+        }
+
+    #cover-info-lists {
+      position: absolute;
+      top: 40px;
+      left: 340px;
+      overflow: hidden;
+    }
+
+        .cover-info-list {
+          width: 200px;
+          height: 250px;
+          margin-right: 20px;
+          float: left;
+        }
+
+            .cover-info-list h1 {
+              font-size: 14px;
+              color: #626262;
+            }
+
+            .cover-info-list .items {
+              width: 100%;
+              height: 220px;
+              overflow-x: hidden;
+              overflow-y: auto;
+              border: solid 1px #EEE;
+            }
+
+.list-view {
+  width: 100%;
+  clear: both;
+  z-index: 100;
+}
+
+    .playing {
+      background: black; /* Old browsers */
+      background: -moz-linear-gradient(top,  black 0%, black 50%, black 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,black), color-stop(50%,black), color-stop(100%,black)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  black 0%,black 50%,black 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  black 0%,black 50%,black 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  black 0%,black 50%,black 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  black 0%,black 50%,black 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='black', endColorstr='black',GradientType=0 ); /* IE6-9 */
+    }
+
+        .playing .track-title {
+            color: #f90 !important;
+        }
+
+        .playing .track-artist {
+            color: #f90;
+        }
+
+        .playing .track-play img {
+            content: url('../images/prev_white.png');
+            display: block !important;
+        }
+
+    .track {
+      position: relative;
+      width: 400px;
+      height: 40px;
+      padding: 0px;
+    }
+
+        .track-edit {
+          position: absolute;
+          top: 6px;
+          right: 26px;
+          height: 16px;
+        }
+
+            .track:hover .track-edit input {
+              opacity: 1;
+            }
+
+            .track-edit input:checked {
+              opacity: 1;
+            }
+
+        .track-play {
+          position: absolute;
+          top: 12px;
+          left: 23px;
+          width: 85%;
+          height: 70%;
+          cursor: pointer;
+        }
+
+          .track-play img {
+            display: none; 
+          }
+
+	  .track-play:hover img {
+            display: inline;
+          }
+
+        .track-title {
+          position: absolute;
+          top: 9px;
+          left: 63px;
+          font-weight: bold;
+          font-size: 12px;
+          cursor: pointer;
+          white-space: nowrap;
+          overflow: hidden;
+          color: white;
+        }
+
+            .track-title:hover {
+              text-decoration: underline;
+              opacity: 0.7;
+            }
+
+        .track-artist {
+          position: absolute;
+          top: 9px;
+          left: 341px;
+          cursor: pointer;
+          font-size: 12px;
+          color: white;
+          overflow: hidden;
+        }
+
+            .track-artist:hover {
+              text-decoration: underline;
+              opacity: 0.7;
+            }
+
+        .track-options {
+          position: absolute;
+          top: 14px;
+          right: 20px;
+          overflow: hidden;
+          text-align: right;
+        }
+
+.big-album-view {
+  width: 100%;
+  clear: both;
+}
+
+    .big-album-view-item {
+      position: relative;
+      display: block;
+      width: 100%;
+      clear: both;
+      min-height: 120px;
+      margin: 10px 0 20px 20px;
+      overflow: hidden;
+    }
+
+        .big-album-view-item .item-cover {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          width: 100px;
+          height: 100px;
+          background-position: 50% 50%;
+          background-size: cover;
+          border: solid 1px #CCC;
+          box-shadow: 1px 1px 3px #CCC;
+        }
+
+        .big-album-view-item .item-title {
+          position: absolute;
+          top: 20px;
+          left: 130px;
+          font-size: 17px;
+          color: #444;
+          cursor: pointer;
+          border-bottom: dashed 1px #777;
+        }
+
+            .big-album-view-item .item-title:hover {
+              color: #000;
+            }
+
+        .big-album-view-item .item-artist {
+          position: absolute;
+          top: 45px;
+          left: 130px;
+          font-size: 13px;
+          color: #999;
+        }
+
+        .big-album-view-item .item-list {
+          margin-top: 70px;
+          margin-left: 120px;
+          width: 75%;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+
+            .item-list .track {
+              width: 250px;
+              float: left;
+            }
+
+.sidebar_view {
+  height: 531px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+    .sidebar_view-item {
+      width: 100%;
+      border-top: solid 1px #555555;
+      position: relative;
+      height: 46px;
+      color: #777777;
+    }
+
+        .sidebar_view-item:hover {
+            background: #002030;
+        }
+
+        .sidebar_view-item:hover .sidebar_view-user {
+            display: none;
+        }
+
+        .sidebar_view-item:hover .sidebar_view-username {
+            display: block;
+        }
+
+    .sidebar_view-img {
+      margin: 10px;
+      width: 35px;
+      height: 30px;
+      float: left;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+
+    .sidebar_view-title {
+      height: 33px;
+      float: left;
+      width: 100%;
+      padding-top: 13px;
+      padding-left: 27px;
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #777777;
+    }
+
+    .sidebar_view-dsc {
+      float: left;
+      position: absolute;
+      margin-left: 315px;
+      margin-top: 13px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #777777;
+    }
+
+    .sidebar_view-subtitle {
+      float: left;
+      margin-top: 13px;
+      margin-left: 235px;
+      position: absolute;
+      font-size: 12px;
+      color: #777777;
+    }
+
+    .sidebar_view-user {
+      font-size: 12px;
+      margin-left: 686px;
+      position: absolute;
+    }
+
+    .sidebar_view-username {
+      padding: 5px;
+      border: solid 1px #cccccc;
+      display: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+      background: black;
+      margin-top: 7px;
+      right: 173px;
+      position: absolute;
+      font-size: 12px;
+      color: white;
+    }
+
+      .sidebar_view-username:hover {
+        text-decoration: underline;
+      }
+
+    .sidebar_view-buttons {
+      float: left;
+      margin-top: 10px;
+      margin-left: 417px;
+      cursor: pointer;
+      position: absolute;
+      font-size: 12px;
+      color: #777777;
+    }
+
+.mysidebar_view {
+  height: 531px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+    .mysidebar_view-item {
+      width: 100%;
+      border-top: solid 1px #555555;
+      position: relative;
+      height: 46px;
+    }
+
+        .mysidebar_view-item:hover {
+            background: #002030;
+        }
+
+        .mysidebar_view-item:hover .mysidebar_view-buttons {
+          display: block;
+        }
+
+        .mysidebar_view-item:hover .mysidebar_view-subtitle {
+          display: none;
+        }
+
+    .mysidebar_view-title {
+      height: 33px;
+      float: left;
+      width: 94%;
+      padding-top: 12px;
+      padding-left: 26px;
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #777777;
+    }
+
+    .mysidebar_view-dsc {
+      float: left;
+      position: absolute;
+      margin-left: 313px;
+      margin-top: 13px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      opacity: 0.8;
+    }
+
+    .mysidebar_view-subtitle {
+      float: left;
+      margin-top: 12px;
+      margin-left: 298px;
+      position: absolute;
+      font-size: 12px;
+      color: #777777;
+    }
+
+    .mysidebar_view-buttons {
+      float: left;
+      display: none;
+      margin-top: 14px;
+      margin-left: 330px;
+      cursor: pointer;
+      position: absolute;
+      font-size: 12px;
+      color: #777777;
+    }
+
+.with_sidebar_view {
+  position: absolute;
+  top: 0;
+  left: 910px;
+  right: 71px;
+  bottom: 0;
+}
+
+    .with_sidebar_view > h1 {
+      font-size: 24px;
+      margin: 20px;
+      margin-bottom: 5px;
+      padding-bottom: 0;
+      color: #888;
+    }
+
+    .with_sidebar_view .scroll_panel {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+.tabs {
+  display: none;
+}
+
+#tab-user {
+  display: block;
+}
+
+.columns {
+  clear: both;
+  overflow: hidden;
+}
+
+    .column-50 {
+      width: 50%;
+      float: left;
+    }
+
+    .columns h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+.header_small {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: normal;
+  font-size: 11px;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+  color: #777;
+}
+
+    .header_small:hover {
+      color: #555;
+    }
+
+
+.list-buttons {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 702px;
+  position: relative;
+  white-space: nowrap;
+}
+
+    .list-remove-button,
+    .list-addto-button,
+    .list-selectall-button {
+      display: inline-block;
+      float: left;
+      font-weight: normal;
+      padding-top: 2px;
+      cursor: pointer;
+      margin-top: -33px;
+      position: relative;
+    }
+
+
+.add_to_popup {
+  display: none;
+  position: absolute;
+  top: 35px;
+  width: 200px;
+  height: 180px;
+  right: 30px;
+  border-left: solid 1px #cccccc;
+  border-right: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+  z-index: 200;
+}
+
+    .add_to_popup-list {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      color: black;
+      background: white;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+        .add_to_button {
+          position: relative;
+          width: 100%;
+          height: 20px;
+          text-align: center;
+          font-size: 11px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          cursor: pointer;
+          z-index: 200;
+          opacity: 1;
+
+          background: white; /* Old browsers */
+          background: -moz-linear-gradient(top,  #ffffff 0%, white 100%); /* FF3.6+ */
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,white)); /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(top,  #ffffff 0%,white 100%); /* Chrome10+,Safari5.1+ */
+          background: -o-linear-gradient(top,  #ffffff 0%,white 100%); /* Opera 11.10+ */
+          background: -ms-linear-gradient(top,  #ffffff 0%,white 100%); /* IE10+ */
+          background: linear-gradient(to bottom,  #ffffff 0%,white 100%); /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='white',GradientType=0 ); /* IE6-9 */
+        }
+
+        .add_to_button:hover {
+          background: #0088cc;
+          color: white;
+        }
+
+/* User */
+.search_saved-delete {
+  margin-left: 10px;
+}
+
+#user-recommended {
+  position: absolute;
+  top: 30px;
+  left: 65%;
+  width: 250px;
+  height: 280px;
+}
+
+    #user-recommended h1 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+#user-lists {
+  clear: both;
+  overflow: hidden;
+}
+
+    .user-list {
+      width: 250px;
+      margin: 20px 40px;
+      float: left;
+    }
+
+        .user-list h1 {
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .user-list-list {
+          width: 250px;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+
+            .user-list-list ol {
+              list-style-type: decimal-leading-zero;
+              padding-left: 30px;
+            }
+
+            .user-list-list .item {
+              padding: 10px;
+              cursor: pointer;
+              opacity: 0.8;
+            }
+
+            .user-list-list .item:hover {
+              opacity: 1;
+            }
+
+                .user-list-list .item span {
+                  font-weight: bold;
+                }
+
+                .user-list-list .item small {
+                  font-size: 11px;
+                  color: #A9A9A9;
+                }
+
+/* Music */
+
+#music-tracks {
+  padding-left: 0px;
+  z-index: 100;
+}
+
+    #music-tracks .track {
+      width: 100%;
+    }
+
+#listening_history .track, #vk_audio .track {
+  width: 90%;
+}
+
+#vk_need_login {
+  padding: 20px 0;
+  display: none;
+}
+
+/* Artist */
+
+#cover-info-buttons {
+}
+
+/* Playlist */
+
+#playlist_tracks {
+  padding-left: 0px;
+  z-index: 100;
+}
+
+    #playlist_tracks .track {
+      width: 100%;
+      height: 50px;
+    }
+
+    #playlist_tracks .playing {
+      background: black; /* Old browsers */
+      background: -moz-linear-gradient(top,  black 0%, black 50%, black 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,black), color-stop(50%,black), color-stop(100%,black)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  black 0%,black 50%,black 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  black 0%,black 50%,black 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  black 0%,black 50%,black 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  black 0%,black 50%,black 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='black', endColorstr='black',GradientType=0 ); /* IE6-9 */
+    }
+
+    #playlist_tracks .track .track-edit {
+      display: none;
+    }
+
+    #playlist_tracks .track .track-play {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+        #playlist_tracks .track .track-play img {
+          display: none; 
+        }
+
+
+        #playlist_tracks .track .track-play:hover img {
+          display: inline;
+        }
+
+    #playlist_tracks .track .track-title {
+      position: absolute;
+      top: 7px;
+      left: 55px;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      color: white;
+    }
+
+        #playlist_tracks .track .track-title:hover {
+          text-decoration: underline;
+          opacity: 0.7;
+        }
+
+    #playlist_tracks .track .track-artist {
+      position: absolute;
+      top: 22px;
+      left: 55px;
+      font-size: 11px;
+      color: #999999;
+      overflow: hidden;
+    }
+
+    #playlist_tracks .track .track-options {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      overflow: hidden;
+      text-align: right;
+    }
+
+.sidebar_view-add {
+  position: relative;
+  margin: 10px 0 0 15px;
+  cursor: pointer;
+}
+
+    .sidebar_view-add img {
+      margin: 5px;
+    }
+
+    .sidebar_view-add span {
+      font-size: 11px;
+    }
+
+    .sidebar_view-add input {
+      display: none;
+    }
+
+#playlist_buttons {
+  margin-left: 18px;
+}

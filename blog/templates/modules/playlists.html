@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row">
+    <div class="span6" style="width:500px;">
+
+      <div class="sidebar_view" style="height:232px;margin-bottom:19px;background:black;border:solid 1px #252525;">
+        <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;border-bottom:1px solid #555555">CREATE PLAYLIST</p>
+        <div class="sidebar_view-add" id="create_playlist">
+          <input type="text" maxlength="25" placeholder="Title your mix" style="margin-left:12px;background:black;color:white;padding-left:13px;margin-top:8px;margin-bottom:10px;height:32px;width:423px;">
+          <input id="tags" type="text" maxlength="45" placeholder="Add one to three tags" style="margin-left:12px;background:black;color:white;padding-left:13px;height:32px;width:423px;">
+          <p><button class="btn btn-large btn-primary btn-login" style="width:444px;background:#ff8800;margin-left:12px;border:none;border-radius:4px;">Create mix</button></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="span5" style="width:377px;">
+
+      <div class="mysidebar_view" style="width:377px;height:232px;margin-bottom:19px;margin-left:-10px;background:black;border:solid 1px #252525;overflow:hidden;">
+        <div id="scrollable" style="width:392px;height:232px;overflow-y:scroll;overflow-x:hidden;">
+          <p style="font-size:14px;color:#777777;margin:0px;padding-left:25px;padding-top:12px;padding-bottom:12px;">MY PLAYLISTS</p>
+          <div id="myplaylists_sidebar"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="span9" style="width:899px;">
+      <div class="sidebar_view" style="width:897px;height:615px;background:black;border:solid 1px #252525;display:none;overflow:hidden;margin-top:1px;">
+        <div class="row">
+          <div class="search">
+              <input type="text" name="query" id="music-search" class="search-query" style="float:left;background:black;color:white;margin-left:56px;margin-top:22px;margin-bottom:22px;height:32px;width:816px;border-radius:4px;" placeholder="Please add eight or more songs to your playlist by searching here.">
+              <button class="search-button"><img src="/images/zoom.png" style="padding-top:4px;"></button>
+          </div>
+        </div>
+        <p style="height:32px;margin:0px;color:#777777;background:black;padding-left:62px;padding-top:13px;border-bottom:1px solid #252525;border-top:1px solid #252525;">TRACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARTIST
+          <span class="list-buttons" id="music-search-buttons" data-list-id="music-tracks" data-list-name="search_list">
+            <span class="list-addto-button">
+              <a style="color:white;">Choose a playlist</a>
+              <span class="add_to_popup">
+                <span class="add_to_popup-list"></span>
+              </span>
+            </span>
+          </span>
+        </p>
+        <div id="scrollable" style="width:912px;height:482px;overflow-y:scroll;overflow-x:hidden;">
+          <div id="music-tracks"></div>
+        </div>
+        <!--<div class="search-params">
+          <button class="btn" style="width:100px;height:41px;background:white;margin-top:18px;margin-left:10px;">
+            <input type="checkbox" name="duplicates" class="search-param-artistonly" id="music-search-param-artistonly" style="margin-left:-60px;margin-top:3px;"/>
+            <label for="music-search-param-artistonly" style="margin-top:-17px;margin-left:16px;">By artist</label>
+          </button>
+        </div>-->
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+    var availableTags = [
+        "alternative", "rock", "hip-hop", "experimental", "grunge", "indie", "acoustic", "classic", "r&b", "folk", "punk", "blues", "electronic", "chillwave", "workout", "yoga", "dance", "easy listening", "european", "rap", "jazz", "new age", "pop", "reggae", "singer/songwriter", "garage", "remix", "techno", "disco", "old school", "soundtrack"
+    ];
+    function split( val ) {
+      return val.split( / | \s/ );
+    }
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+ 
+    $( "#tags" )
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).autocomplete( "instance" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          if(terms.length < 10) { 
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            terms.push( ui.item.value );
+            // add placeholder to get the comma-and-space at the end
+            terms.push( " | " );
+            this.value = terms.join( " " );
+            return false;
+          } else {
+            var last = terms.pop();
+            $(this).val(this.value.substr(0, this.value.length - last.length - 1)); // removes text from input
+            return false;
+          }
+        }
+    });
+});
+</script>
+
