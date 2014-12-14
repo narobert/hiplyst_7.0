@@ -172,13 +172,15 @@ Gui.prototype.linkSearchEvents = function() {
     var _this = this;
     this.ui_searchbutton.click(function () {
         _this.active_tab_gui.search();
-        $(".sidebar_view").css("display", "block");
+        $(".search_view").css("display", "block");
+        $(".playlist_view").css("display", "none");
     });
     
     this.ui_search.keypress(function (e) {
         if ((e.which == 13) && ($(this).val() != "")) {
             _this.active_tab_gui.search();
-            $(".sidebar_view").css("display", "block");
+            $(".search_view").css("display", "block");
+            $(".playlist_view").css("display", "none");
         }
     });
 
@@ -186,7 +188,8 @@ Gui.prototype.linkSearchEvents = function() {
         if ((e.which == 13) && ($(this).val() != "")) {
             _this.user_gui.search($(this).val());
             gui.activateTab("playlists");
-            $(".sidebar_view").css("display", "block");
+            $(".search_view").css("display", "block");
+            $(".playlist_view").css("display", "none");
         }
     });
 };

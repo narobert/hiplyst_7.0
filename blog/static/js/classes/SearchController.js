@@ -8,7 +8,7 @@ function SearchController(player) {
     this.active_filters = {
         "doubles": true,
         "artist": false,
-        "title": false
+        "title": true
     };
 }
 

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
-from playlists.models import Vote, Playlist, PlaylistTracks, Ranking
-from blog.models import Image, Profile
+from playlists.models import Upvote, Downvote, Playlist, PlaylistTracks, Ranking, Profile
+from blog.models import Image
 from annoying.decorators import ajax_request
 from django.http import HttpResponseRedirect, HttpResponse
 import simplejson as json
@@ -15,12 +15,16 @@ def list(request):
     playlist_trending_objects = Playlist.objects.filter(count__range=["1", "1000"], rep__range=["-20", "30"], upvotes=1).order_by("-rep")
     playlist_myprofile_objects = Playlist.objects.filter(user=request.user, count__range=["1", "1000"]).order_by("-rep")
     myplaylist_objects = Playlist.objects.filter(user=request.user).order_by("-id")
+    upvote_objects = Upvote.objects.filter(user=request.user)
+    downvote_objects = Downvote.objects.filter(user=request.user)
     playlists_new = [pl.for_json() for pl in playlist_new_objects]
     playlists_hot = [pl.for_json() for pl in playlist_hot_objects]
     playlists_trending = [pl.for_json() for pl in playlist_trending_objects]
     playlists_myprofile = [pl.for_json() for pl in playlist_myprofile_objects]
     myplaylists = [pl.for_json() for pl in myplaylist_objects]
-    return {"status": "OK", "count": len(playlists_new), "lists_new": playlists_new, "lists_hot": playlists_hot, "lists_trending": playlists_trending, "lists_myprofile": playlists_myprofile, "mylists": myplaylists}
+    upvotes = [pl.for_json() for pl in upvote_objects]
+    downvotes = [pl.for_json() for pl in downvote_objects]
+    return {"status": "OK", "count": len(playlists_new), "lists_new": playlists_new, "lists_hot": playlists_hot, "lists_trending": playlists_trending, "lists_myprofile": playlists_myprofile, "mylists": myplaylists, "upvote": upvotes, "downvote": downvotes}
 
 
 @ajax_request
@@ -85,7 +89,12 @@ def new(request):
     if not name:
         return {"status": "NeOK", "message": u"No specified playlist name"}
 
-    playlist = Playlist.objects.create(user=request.user, title=name, description=dsc)
+    profile = Profile.objects.get(user=request.user)
+    playlist = Playlist.objects.create(user=request.user, title=name, description=dsc, profile=profile)
+    upvote = Upvote.objects.create(user=request.user, upvoted=False, playlist=playlist, button_color=30)
+    downvote = Downvote.objects.create(user=request.user, downvoted=False, playlist=playlist, button_color=30)
+    upvote.save()
+    downvote.save()
     playlist.save()
     return {"status": "OK", "message": u"Playlist created"}
 
@@ -110,8 +119,60 @@ def upvote(request):
     id = request.POST.get("id")
     playlist = Playlist.objects.get(id=id)
 
-    upvoting = Vote.objects.filter(user=request.user, upvoted=True, downvoted=False, playlist=playlist)
-    downvoting = Vote.objects.filter(user=request.user, upvoted=False, downvoted=True, playlist=playlist)
+    upvoting = Upvote.objects.filter(user=request.user, upvoted=True, playlist=playlist, button_color=10)
+    downvoting = Downvote.objects.filter(user=request.user, downvoted=True, playlist=playlist, button_color=20)
+    ranked = Ranking.objects.filter(user=playlist.user)
+
+    if (playlist.rep == 0 and ranked.count() == 0):
+        ranked = Ranking.objects.create(user=playlist.user)
+    else:
+        ranked = Ranking.objects.get(user=playlist.user)
+
+    if (upvoting.count() == 0 and downvoting.count() == 0):
+ 
+        upvote = Upvote.objects.get(user=request.user, upvoted=False, playlist=playlist, button_color=30)
+        
+        playlist.upvotes += 1
+        playlist.rep += 10
+        ranked.rank += 10
+        ranked.save()
+        upvote.button_color = 10
+        upvote.upvoted = True
+        upvote.save()
+        playlist.save()
+
+    elif (upvoting.count() == 1 and downvoting.count() == 0):
+
+        upvote = Upvote.objects.get(user=request.user, upvoted=True, playlist=playlist, button_color=10)
+
+        playlist.upvotes -= 1
+        playlist.rep -= 10
+        ranked.rank -= 10
+        ranked.save()
+        upvote.button_color = 30
+        upvote.upvoted = False
+        upvote.save()
+        playlist.save()
+
+    elif (upvoting.count() == 0 and downvoting.count() == 1):
+
+        playlist.save()
+
+    elif (upvoting.count() == 1 and downvoting.count() == 1):
+
+        playlist.save()
+   
+    return {"status": "OK", "message": u"Liked playlist"}
+
+
+@ajax_request
+@login_required
+def downvote(request):
+    id = request.POST.get("id")
+    playlist = Playlist.objects.get(id=id)
+
+    upvoting = Upvote.objects.filter(user=request.user, upvoted=True, playlist=playlist, button_color=10)
+    downvoting = Downvote.objects.filter(user=request.user, downvoted=True, playlist=playlist, button_color=20)
     ranked = Ranking.objects.filter(user=playlist.user)
 
     if (playlist.rep == 0 and ranked.count() == 0):
@@ -121,68 +182,29 @@ def upvote(request):
 
     if (upvoting.count() == 0 and downvoting.count() == 0):
 
-        created = Vote.objects.create(user=request.user, upvoted=True, downvoted=False, playlist=playlist)
-        
-        playlist.upvotes += 1
-        playlist.rep += 10
-        ranked.rank += 10
-        ranked.save()
-        playlist.save()
-
-    elif (upvoting.count() == 1 and downvoting.count() == 0):
-
-        playlist.upvotes -= 1
-        playlist.rep -= 10
-        ranked.rank -= 10
-        ranked.save()
-        playlist.save()
-        upvoting.delete()
-
-    elif (upvoting.count() == 0 and downvoting.count() == 1):
-
-        playlist.save()
-
-    elif (upvoting.count() == 1 and downvoting.count() == 1):
-
-        playlist.save()
-        upvoting.delete()
-   
-    return {"status": "NeOK", "message": u"Liked playlist"}
-
-
-@ajax_request
-@login_required
-def downvote(request):
-    id = request.POST.get("id")
-    playlist = Playlist.objects.get(id=id)
-
-    upvoting = Vote.objects.filter(user=request.user, upvoted=True, downvoted=False, playlist=playlist)
-    downvoting = Vote.objects.filter(user=request.user, upvoted=False, downvoted=True, playlist=playlist)
-    ranked = Ranking.objects.filter(user=playlist.user)
-
-    if (playlist.rep == 0 and ranked.count() == 0):
-        ranked = Ranking.objects.create(user=playlist.user)
-    else:
-        ranked = Ranking.objects.get(user=playlist.user)
-
-    if (downvoting.count() == 0 and upvoting.count() == 0):
-
-        created = Vote.objects.create(user=request.user, upvoted=False, downvoted=True, playlist=playlist)
+        downvote = Downvote.objects.get(user=request.user, downvoted=False, playlist=playlist, button_color=30)
 
         playlist.downvotes += 1
         playlist.rep -= 10
         ranked.rank -= 10
         ranked.save()
+        downvote.button_color = 20
+        downvote.downvoted = True
+        downvote.save()
         playlist.save()
 
     elif (downvoting.count() == 1 and upvoting.count() == 0):
+
+        downvote = Downvote.objects.get(user=request.user, downvoted=True, playlist=playlist, button_color=20)
 
         playlist.downvotes -= 1
         playlist.rep += 10
         ranked.rank += 10
         ranked.save()
+        downvote.button_color = 30
+        downvote.downvoted = False
+        downvote.save()
         playlist.save()
-        downvoting.delete()
 
     elif (downvoting.count() == 0 and upvoting.count() == 1):
 
@@ -191,9 +213,8 @@ def downvote(request):
     elif (downvoting.count() == 1 and upvoting.count() == 1):
 
         playlist.save()
-        downvoting.delete()
        
-    return {"status": "NeOK", "message": u"Disliked playlist"}
+    return {"status": "OK", "message": u"Disliked playlist"}
 
 
 @ajax_request

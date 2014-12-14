@@ -9,7 +9,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .forms import UserForm
 from annoying.decorators import ajax_request, render_to
-from blog.models import AccessTokens, Image, Profile
+from blog.models import AccessTokens, Image
+from playlists.models import Profile
 
 def full(request):
   images = Image.objects.all()
@@ -34,7 +35,7 @@ def register(request):
       newuser.save()
       newimg = Image.objects.create(user = newuser, path = form.cleaned_data['image'])
       newimg.save()
-      newprofile = Profile.objects.create(user = newuser, artists = form.cleaned_data['artist'], genres = form.cleaned_data['genre'], concerts = form.cleaned_data['concert'])
+      newprofile = Profile.objects.create(user = newuser, artists = form.cleaned_data['artist'], genres = form.cleaned_data['genre'], concerts = form.cleaned_data['concert'], location = form.cleaned_data['city'], image = newimg)
       newprofile.save()
       user = authenticate(username=name, password=pw)
       auth_login(request, user)

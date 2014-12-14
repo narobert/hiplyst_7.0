@@ -1,9 +1,23 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from blog.models import Image
+
+
+class Profile(models.Model):
+    image = models.ForeignKey(Image)
+    location = models.CharField(u"Location", max_length=100)
+    artists = models.CharField(u"Favorite artists", max_length=100)
+    genres = models.CharField(u"Favorite genres", max_length=100)
+    concerts = models.CharField(u"Favorite concerts", max_length=100)
+    user = models.ForeignKey(User)
+
+    def for_json(self):
+        return {"artists": self.artists, "genres": self.genres, "concerts": self.concerts}
 
 
 class Playlist(models.Model):
+    profile = models.ForeignKey(Profile)
     id = models.AutoField('#', primary_key=True)
     user = models.ForeignKey(User, verbose_name=u'User', related_name="playlist_user")
     time = models.DateTimeField(u'When', auto_now_add=True)
@@ -27,7 +41,7 @@ class Playlist(models.Model):
         return PlaylistTracks.objects.filter(playlist=self).count()
 
     def for_json(self):
-        return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username}
+        return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "image": str(self.profile.image.path), "location": self.profile.location}
 
 
 class Ranking(models.Model):
@@ -38,12 +52,42 @@ class Ranking(models.Model):
         return {"ranks": self.rank}
 
 
-class Vote(models.Model):
+class Upvote(models.Model):
+
+    LIKE = 10
+    NEUTRAL = 30
+    BUTTON_COLORS = (
+        (NEUTRAL, 'black'),
+        (LIKE, '#f90'), 
+    )
+
     user = models.ForeignKey(User)
     playlist = models.ForeignKey(Playlist)
     time = models.DateTimeField(u'When', auto_now_add=True)
     upvoted = models.BooleanField(u"Upvote", default=False)
+    button_color = models.IntegerField(max_length=2, choices=BUTTON_COLORS)
+
+    def for_json(self):
+        return {"button_color": self.button_color, "playlist_id": self.playlist.id}
+
+
+class Downvote(models.Model):
+
+    DISLIKE = 20
+    NEUTRAL = 30
+    BUTTON_COLORS = (
+        (NEUTRAL, 'black'),
+        (DISLIKE, '#0088cc'), 
+    )
+
+    user = models.ForeignKey(User)
+    playlist = models.ForeignKey(Playlist)
+    time = models.DateTimeField(u'When', auto_now_add=True)
     downvoted = models.BooleanField(u"Downvote", default=False)
+    button_color = models.IntegerField(max_length=2, choices=BUTTON_COLORS)
+
+    def for_json(self):
+        return {"button_color": self.button_color, "playlist_id": self.playlist.id}
 
 
 class PlaylistTracks(models.Model):

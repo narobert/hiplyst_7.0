@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 	
 class UserForm(forms.Form):
   image = forms.ImageField()
+  city = forms.CharField(max_length=100)
   artist = forms.CharField(max_length=100)
   genre = forms.CharField(max_length=100)
   concert = forms.CharField(max_length=100)

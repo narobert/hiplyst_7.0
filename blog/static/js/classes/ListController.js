@@ -3,6 +3,7 @@ function ListController(player) {
     this.player = player;
     this.shown_list = false;
     this.update_list_interval = undefined;
+    this.ui_playlist_like = $("#like");
 
     this.nowplaying = new NowPlayingList(this);
 

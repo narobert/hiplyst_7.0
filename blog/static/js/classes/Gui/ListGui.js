@@ -57,13 +57,15 @@ ListGui.prototype.linkTrackEvents = function() {
     this.ui_track_title.live("click", function() {
         gui.activateTab("playlists");
         gui.playlists_gui.search($(this).html());
-        $(".sidebar_view").css("display", "block");
+        $(".search_view").css("display", "block");
+        $(".playlist_view").css("display", "none");
     });
 
     this.ui_track_artist.live("click", function() {
         gui.activateTab("playlists");
         gui.playlists_gui.search($(this).html());
-        $(".sidebar_view").css("display", "block");
+        $(".search_view").css("display", "block");
+        $(".playlist_view").css("display", "none");
     });
 
     this.ui_track_delete.live("click", function() {
