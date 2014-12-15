@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from playlists.models import Upvote, Downvote, Playlist, PlaylistTracks, Ranking, Profile
+from django.contrib.auth.models import User
 from blog.models import Image
 from annoying.decorators import ajax_request
 from django.http import HttpResponseRedirect, HttpResponse
@@ -15,16 +16,25 @@ def list(request):
     playlist_trending_objects = Playlist.objects.filter(count__range=["1", "1000"], rep__range=["-20", "30"], upvotes=1).order_by("-rep")
     playlist_myprofile_objects = Playlist.objects.filter(user=request.user, count__range=["1", "1000"]).order_by("-rep")
     myplaylist_objects = Playlist.objects.filter(user=request.user).order_by("-id")
-    upvote_objects = Upvote.objects.filter(user=request.user)
-    downvote_objects = Downvote.objects.filter(user=request.user)
     playlists_new = [pl.for_json() for pl in playlist_new_objects]
     playlists_hot = [pl.for_json() for pl in playlist_hot_objects]
     playlists_trending = [pl.for_json() for pl in playlist_trending_objects]
     playlists_myprofile = [pl.for_json() for pl in playlist_myprofile_objects]
     myplaylists = [pl.for_json() for pl in myplaylist_objects]
+    return {"status": "OK", "count": len(playlists_new), "lists_new": playlists_new, "lists_hot": playlists_hot, "lists_trending": playlists_trending, "lists_myprofile": playlists_myprofile, "mylists": myplaylists}
+
+
+@ajax_request 
+@login_required
+def viewButtons(request):
+    id = request.POST.get("id")
+    playlist = Playlist.objects.get(id=id)
+
+    upvote_objects = Upvote.objects.filter(user=request.user, playlist=playlist)
+    downvote_objects = Downvote.objects.filter(user=request.user, playlist=playlist)
     upvotes = [pl.for_json() for pl in upvote_objects]
     downvotes = [pl.for_json() for pl in downvote_objects]
-    return {"status": "OK", "count": len(playlists_new), "lists_new": playlists_new, "lists_hot": playlists_hot, "lists_trending": playlists_trending, "lists_myprofile": playlists_myprofile, "mylists": myplaylists, "upvote": upvotes, "downvote": downvotes}
+    return {"status": "OK", "upvote": upvotes, "downvote": downvotes}
 
 
 @ajax_request
@@ -91,10 +101,14 @@ def new(request):
 
     profile = Profile.objects.get(user=request.user)
     playlist = Playlist.objects.create(user=request.user, title=name, description=dsc, profile=profile)
-    upvote = Upvote.objects.create(user=request.user, upvoted=False, playlist=playlist, button_color=30)
-    downvote = Downvote.objects.create(user=request.user, downvoted=False, playlist=playlist, button_color=30)
-    upvote.save()
-    downvote.save()
+    
+    user_list = User.objects.all()
+    for users in user_list:
+      upvote = Upvote.objects.create(user=users, upvoted=False, playlist=playlist, button_color=30)
+      downvote = Downvote.objects.create(user=users, downvoted=False, playlist=playlist, button_color=30)
+      upvote.save()
+      downvote.save()
+
     playlist.save()
     return {"status": "OK", "message": u"Playlist created"}
 

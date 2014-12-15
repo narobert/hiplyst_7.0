@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns(
     'playlists.views',
     (r'list$', 'list'),
+    (r'viewButtons$', 'viewButtons'),
     (r'profile$', 'profile'),
     (r'getPicture$', 'getPicture'),
     (r'getProfile$', 'getProfile'),

@@ -68,7 +68,7 @@ class Upvote(models.Model):
     button_color = models.IntegerField(max_length=2, choices=BUTTON_COLORS)
 
     def for_json(self):
-        return {"button_color": self.button_color, "playlist_id": self.playlist.id}
+        return {"button_color": self.get_button_color_display(), "playlist_id": self.playlist.id}
 
 
 class Downvote(models.Model):
@@ -87,7 +87,7 @@ class Downvote(models.Model):
     button_color = models.IntegerField(max_length=2, choices=BUTTON_COLORS)
 
     def for_json(self):
-        return {"button_color": self.button_color, "playlist_id": self.playlist.id}
+        return {"button_color": self.get_button_color_display(), "playlist_id": self.playlist.id}
 
 
 class PlaylistTracks(models.Model):
