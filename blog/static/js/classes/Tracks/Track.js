@@ -11,7 +11,7 @@ function Track() {
 // Html for track
 Track.template = '<div class="track" id="{{list}}_{{owner_id}}_{{aid}}" class="track" data-id="{{owner_id}}_{{aid}}" data-list="{{list}}" data-artist="{{artist}}" data-title="{{title}}" data-url="{{url}}">' +
     '<div class="track-edit"><input type="checkbox" /></div>' +
-    '<div class="track-play"><img></div>' +
+    '<div class="track-play"><img><span>{{position}}</span></div>' +
     '<div class="track-title">{{title}}</div>' +
     '<div class="track-artist">{{artist}}</div>' +
     '<div class="track-options">' +

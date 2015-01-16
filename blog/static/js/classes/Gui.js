@@ -151,7 +151,7 @@ Gui.prototype.linkButtonEvents = function() {
 
     var callback = function() {
         player.listController.createPlaylist($("#create_playlist input:first").val(), $("#create_playlist input:last").val());
-        $("#create_playlist input").val("") // Set all input fields back to null
+        $("#create_playlist input").val(""); // Set all input fields back to null
     }
 
     $('.btn-login').click(callback);

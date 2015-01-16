@@ -10,3 +10,33 @@
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px">
+          <div class="sidebar_view" style="height:232px;margin-bottom:19px;background:black;border:solid 1px #252525;">
+            <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">ADD A PROFILE PICTURE</p>
+            <form method="POST" action="/ajax/playlist/addProfileImage" enctype="multipart/form-data"> 
+              <input id="id_image" type="file" style="margin-left:26px;background:black;color:#cccccc;height:32px;width:223px;" name="image" required>
+              <p><button class="btn btn-large btn-primary btn-login" style="width:244px;background:#ff8800;margin-left:26px;border:none;border-radius:4px;">Submit</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span9" style="width:897px">
+          <div class="sidebar_view" style="height:232px;margin-bottom:19px;background:black;border:solid 1px #252525;">
+            <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">ADD A PROFILE PICTURE</p>
+            <form method="POST" action="/ajax/playlist/addProfile" enctype="multipart/form-data">
+              <input type="text" style="margin-left:26px;background:black;color:#cccccc;height:32px;width:223px;" name="city" maxlength="100" placeholder="Lives in" required>
+              <input type="text" style="margin-left:26px;background:black;color:#cccccc;height:32px;width:223px;" name="artist" maxlength="100" placeholder="Favorite artists" required>
+              <input type="text" style="margin-left:26px;background:black;color:#cccccc;height:32px;width:223px;" name="genre" maxlength="100" placeholder="Favorite genres" required>
+              <p><button class="btn btn-large btn-primary btn-login" style="width:244px;background:#ff8800;margin-left:26px;border:none;border-radius:4px;">Submit</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

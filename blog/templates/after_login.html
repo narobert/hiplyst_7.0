@@ -101,9 +101,10 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">| {{user.username}}</a>
                 <ul class="dropdown-menu">
-                  <li><a onclick="gui.activateTab('playlists');" style="cursor:pointer;">Create mix</a></li>
+                  <li><a id="show_playlists" onclick="gui.activateTab('playlists');" style="cursor:pointer;">Create mix</a></li>
                   <li><a href="/">Rep points</a></li>
-                  <li><a href="/#user" style="none"><div class="view-my-profile menu-link" onclick="gui.activateTab('user');">View my profile</div></a></li>
+                  <li><a href="/#user" style="none"><div class="view-my-profile menu-link" onclick="gui.activateTab('user');">View my dashboard</div></a></li>
+                  <li><a href="/">View my profile</a></li>
                   <li class="divider"></li>
                   <li><a><div class="user-settings menu-link" style="cursor:pointer;">Settings</div></a></li>
                   <li><a href="/logout/">Log out</a></li>
@@ -198,24 +199,30 @@
       <div id="myplaylists_sidebar"></div>
     </div>
 
-     <div class="container">
+     <div class="container playlist_view">
       <div class="row">
-        <div class="span9" style="width:897px">
-          <div class="sidebar_view playlist_view" style="width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
-            <p style="height:34px;color:#777777;padding-top:12px;padding-left:26px;font-size:14px;margin-bottom:0px;"><span id="playlist_name"></span></p>
-            <p style="height:32px;margin:0px;color:#777777;background:black;padding-left:62px;padding-top:13px;border-bottom:1px solid #252525;border-top:1px solid #252525;">TRACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="span9" style="width:897px;">
+          <div class="sidebar_view" style="width:897px;background:black;border:solid 1px #252525;overflow:hidden;margin-bottom:0px;">
+            <div id="playlist_info"></div>
+            <p style="height:32px;margin:0px;color:#777777;background:black;padding-left:25px;padding-top:13px;border-bottom:1px solid #252525;border-top:1px solid #252525;">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRACK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARTIST
             </p>
             <div id="playlist_tracks" class="scroll_panel sortable"></div>
+            <div class="commentBackground">
+              <div id="comment_playlist"></div>
+            </div>
+            <div class="comment">
+              <div id="playlist_id"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container types">
       <div class="row">
         <div class="span9" style="width:897px">
-          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+          <div class="sidebar_view" style="margin-top:-1px;height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
             <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
               <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">HOT</p>
               <div id="playlists_hot_sidebar"></div>
@@ -225,10 +232,10 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container types">
       <div class="row">
         <div class="span9" style="width:897px">
-          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+          <div class="sidebar_view" style="margin-top:-1px;height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
             <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
               <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">NEW</p>
               <div id="playlists_new_sidebar"></div>
@@ -238,10 +245,10 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container types">
       <div class="row">
         <div class="span9" style="width:897px">
-          <div class="sidebar_view" style="height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
+          <div class="sidebar_view" style="margin-top:-1px;height:232px;width:897px;margin-bottom:20px;background:black;border:solid 1px #252525;overflow:hidden;">
             <div id="scrollable" style="width:912px;height:232px;overflow-y:scroll;overflow-x:hidden;">
               <p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">TRENDING</p>
               <div id="playlists_trending_sidebar"></div>
@@ -254,7 +261,7 @@
 
     <!-- End of filter -->
 
-    <div class="container">
+    <div class="container home_info">
       <div class="row">
         <div class="span9" style="width:897px;">
           <div class="sidebar_view" style="height:60px;width:869px;padding-left:27px;margin-bottom:0px;background:black;border:solid 1px #252525;">

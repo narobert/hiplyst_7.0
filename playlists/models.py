@@ -1,23 +1,23 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-from blog.models import Image
+from blog.models import Image, Picture
 
 
 class Profile(models.Model):
-    image = models.ForeignKey(Image)
-    location = models.CharField(u"Location", max_length=100)
-    artists = models.CharField(u"Favorite artists", max_length=100)
-    genres = models.CharField(u"Favorite genres", max_length=100)
-    concerts = models.CharField(u"Favorite concerts", max_length=100)
+    image = models.ForeignKey(Image, null=True)
+    location = models.CharField(u"Location", max_length=100, null=True)
+    artists = models.CharField(u"Favorite artists", max_length=100, null=True)
+    genres = models.CharField(u"Favorite genres", max_length=100, null=True)
     user = models.ForeignKey(User)
 
     def for_json(self):
-        return {"artists": self.artists, "genres": self.genres, "concerts": self.concerts}
+        return {"artists": self.artists, "genres": self.genres}
 
 
 class Playlist(models.Model):
     profile = models.ForeignKey(Profile)
+    picture = models.ForeignKey(Picture, null=True)
     id = models.AutoField('#', primary_key=True)
     user = models.ForeignKey(User, verbose_name=u'User', related_name="playlist_user")
     time = models.DateTimeField(u'When', auto_now_add=True)
@@ -41,7 +41,10 @@ class Playlist(models.Model):
         return PlaylistTracks.objects.filter(playlist=self).count()
 
     def for_json(self):
-        return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "image": str(self.profile.image.path), "location": self.profile.location}
+        if self.picture is not None:
+            return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location, "image": str(self.profile.image.path), "picture": str(self.picture.paths)}
+        else:
+            return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location, "image": str(self.profile.image.path)}
 
 
 class Ranking(models.Model):
@@ -50,6 +53,16 @@ class Ranking(models.Model):
 
     def for_json(self):
         return {"ranks": self.rank}
+
+
+class Comment(models.Model):
+    profile = models.ForeignKey(Profile)
+    user = models.ForeignKey(User)
+    playlist = models.ForeignKey(Playlist)
+    title = models.CharField(max_length=200)
+
+    def for_json(self):
+        return {"user": self.user.username, "title": self.title, "id": self.playlist.id, "id_user": self.user.id, "image": str(self.profile.image.path)}
 
 
 class Upvote(models.Model):

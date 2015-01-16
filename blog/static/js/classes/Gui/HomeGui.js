@@ -22,6 +22,7 @@ function HomeGui() {
     this.ui_playlist_like = $("#like");
     this.ui_playlist_dislike = $("#dislike");
     this.ui_playlist_username = $(".sidebar_view-username");
+    this.ui_playlist_user = $("#user");
    
     this.ui_track_list = $("#music-tracks");
     this.ui_searchbox = $("#music-search");
@@ -38,7 +39,7 @@ function HomeGui() {
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:70px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-13px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
         '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
         '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
     '</div>';
@@ -46,7 +47,7 @@ function HomeGui() {
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:70px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-13px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
         '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
         '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
     '</div>';
@@ -54,23 +55,22 @@ function HomeGui() {
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:70px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-13px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
         '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
         '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
     '</div>';
-    this.username_profile_template = '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-bottom:12px;">FAVORITE ARTISTS&nbsp;<font style="color:white;"> {{profile_artists}}</font></p>' +
-        '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-bottom:12px;">FAVORITE GENRES&nbsp;<font style="color:white;"> {{profile_genres}}</font></p>' +
-        '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-bottom:12px;">FAVORITE CONCERTS&nbsp;<font style="color:white;"> {{profile_concerts}}</font></p>' +
-        '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-bottom:12px;">UPLOADED LYRICS&nbsp;<font style="color:white;"> no</font></p>' +
-        '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-bottom:12px;">UPLOADED ALBUM ART&nbsp;<font style="color:white;"> no</font></p>';
-    this.username_picture_template = '<img style="width:100%;height:auto;" src="/media/{{imager}}">';
-    this.username_rank_template = '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">REP POINTS&nbsp;<font style="color:white;"> {{ranker}}</font></p>';
-    this.playlist_username_template = '<p style="font-size:14px;color:#777777;margin:0px;padding-left:26px;padding-top:12px;padding-bottom:12px;">USER&nbsp;<font style="color:white;"> {{pos}}</font></p>';
+    this.username_profile_template = '<p>FAVORITE ARTISTS <font style="color:#cccccc;">{{profile_artists}}</font></p>' +
+        '<p>FAVORITE GENRES <font style="color:#cccccc;">{{profile_genres}}</font></p>' +
+        '<p>UPLOADED LYRICS <font style="color:#cccccc;">no</font></p>' +
+        '<p>UPLOADED ALBUM ART <font style="color:#cccccc;">no</font></p>';
+    this.username_picture_template = '<div class="span3" style="width:260px;"><img class="photo" src="/media/{{imager}}"></div>';
+    this.username_rank_template = '<p>RANK <font style="color:#cccccc;">{{ranker}}</font></p>';
+    this.playlist_username_template = '<h4><font style="color:#cccccc;">{{pos}}</font></h4>';
     this.playlist_profile_template = '<div class="sidebar_view-item">' +
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:70px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-13px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
         '<div style="margin-left:750px;position:absolute;font-size:12px;">{{like}}</div>' +
         '<div style="margin-left:825px;position:absolute;font-size:12px;">{{dislike}}</div>' +
     '</div>';
@@ -78,7 +78,7 @@ function HomeGui() {
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:70px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-13px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
         '<div style="margin-left:750px;position:absolute;font-size:12px;">{{like}}</div>' +
         '<div style="margin-left:825px;position:absolute;font-size:12px;">{{dislike}}</div>' +
     '</div>';
@@ -105,15 +105,27 @@ function HomeGui() {
     var _this = this;
     this.ui_playlist_handler.live("click", function() {
         _this.loadPlaylist($(this).attr("data-id"));
+        _this.loadPlaylistInfo($(this).attr("data-id"));
+        _this.loadComments($(this).attr("data-id"));
+        $('.types').css("display", "none");
+        $('.home_info').css("display", "none");
         $('.playlist_view').css("display", "block");
         $('.search_view').css("display", "none");
+        $('.user_playlists').css("display", "none");
+        $('.profile_info').css("display", "none");
     });
 
     var _this = this;
     this.ui_myplaylist_handler.live("click", function() {
         _this.loadPlaylist($(this).attr("data-id"));
+        _this.loadPlaylistInfo($(this).attr("data-id"));
+        _this.loadComments($(this).attr("data-id"));
+        $('.types').css("display", "none");
+        $('.home_info').css("display", "none");
         $('.playlist_view').css("display", "block");
         $('.search_view').css("display", "none");
+        $('.user_playlists').css("display", "none");
+        $('.profile_info').css("display", "none");
     });
 
     var _this = this;
@@ -123,6 +135,25 @@ function HomeGui() {
         _this.loadPicture($(this).attr("data-id"));
         _this.loadProfiles($(this).attr("data-id"));
         gui.activateTab('profile');
+        $('.types').css("display", "none");
+        $('.playlist_view').css("display", "none");
+        $('.search_view').css("display", "none");
+        $('.user_playlists').css("display", "block");
+        $('.profile_info').css("display", "block");
+    });
+
+    var _this = this;
+    this.ui_playlist_user.live("click", function() {
+        _this.loadProfile($(this).attr("data-id"));
+        _this.loadRank($(this).attr("data-id"));
+        _this.loadPicture($(this).attr("data-id"));
+        _this.loadProfiles($(this).attr("data-id"));
+        gui.activateTab('profile');
+        $('.types').css("display", "none");
+        $('.playlist_view').css("display", "none");
+        $('.search_view').css("display", "none");
+        $('.user_playlists').css("display", "block");
+        $('.profile_info').css("display", "block");
     });
 
     this.loadPlaylists();
@@ -134,6 +165,8 @@ HomeGui.prototype.load = function() {
     this.ui_playlist_tracks.html("");
     this.ui_playlist_name.html("");
     this.ui_playlist_add_to_now.hide();
+    $('.types').css("display", "block");
+    $('.home_info').css("display", "block");
     $('.playlist_view').css("display", "none");
     $('.search_view').css("display", "none");
 };
@@ -404,8 +437,7 @@ HomeGui.prototype.loadProfiles = function(id) {
                 var profile = data["profiled"][0];
                 profiles += Mustache.to_html(_this.username_profile_template, {
                     "profile_artists": profile.artists,
-                    "profile_genres": profile.genres,
-                    "profile_concerts": profile.concerts
+                    "profile_genres": profile.genres
                 });
                 _this.ui_username_profile.html(profiles);
             } else {
@@ -471,7 +503,8 @@ HomeGui.prototype.loadPlaylist = function(id) {
             html += gui.list_gui.trackHtml(track, {
                 "show_deletetrack": true,
                 "show_sort": true,
-                "list": "playlist-" + _this.shown_playlist_id
+                "list": "playlist-" + _this.shown_playlist_id,
+                "position": i+1
             });
         }
         _this.ui_playlist_tracks.html(html);
@@ -479,6 +512,97 @@ HomeGui.prototype.loadPlaylist = function(id) {
         _this.ui_playlist_buttons.show();
     });
 };
+
+// Load songs from playlist that you clicked on
+HomeGui.prototype.loadComments = function(id) {
+  if (id) {
+    var _this = this;
+    $.ajax({
+        url: "/ajax/playlist/getComments",
+        data: ({ id: id }),
+        type: "POST",
+        dataType: "json",
+        success: function(data) {
+            if (data["status"] == "OK") {
+                var comments = "";
+                for (var i = 0; i < data["commented"].length; i++) {
+                    var comment = data["commented"][i];
+                    var comment_user = comment.user;
+                    var comment_title = comment.title;
+                    var comment_id = comment.id;
+                    var comment_userid = comment.id_user;
+                    var comment_image = comment.image;
+                    comments += "<div class=row><div class=span1 style=width:70px;><img class=photo_smaller src=/media/" + comment_image + "></img></div><div class='span2 comment1' style=margin-left:0px;><a id=user data-id=" + comment_userid + ">" + comment_user + "</a><p class=comment2>" + comment_title + "</p></div></div>";
+                }
+                $('#comment_playlist').html(comments);
+            }
+        },
+    });
+  }
+};
+
+// Load songs from playlist that you clicked on
+HomeGui.prototype.loadPlaylistInfo = function(id) {
+  if (id) {
+    var _this = this;
+    $.ajax({
+        url: "/ajax/playlist/playlistInfo",
+        data: ({ id: id }),
+        type: "POST",
+        dataType: "json",
+        success: function(data) {
+            if (data["status"] == "OK") {
+                var playlist = data["playlists"][0];
+                var upvote = data["upvotes"][0];
+                var downvote = data["downvotes"][0];
+                var title = playlist.name;
+                var picture = playlist.picture;
+                var tracks = playlist.track_count;
+                var description = playlist.dsc;
+                var upvotes = playlist.upvote;
+                var downvotes = playlist.downvote;
+                var creator = playlist.owner;
+                var upvote_color = upvote.button_color;
+                var downvote_color = downvote.button_color;
+                $('#playlist_info').html("<div class=row><div class=span3 style=width:280px;><div class=wrap><img class=photo src=/media/" + picture + "><center><form class=upload data-id=" + id + " id=repic method=POST enctype=multipart/form-data action=/ajax/playlist/addPlaylistImage/" + id + "><br><br><input type=file name=image style=margin-left:25px;><button class=playlist-button>Submit</button></center></form></div></div><div class=span2 style=width:350px;margin-left:-20px;><h4><font style=color:#cccccc;>" + title + "</font></h4><p>CREATED BY <font style=color:#cccccc;>" + creator + "</font></p><p>SONGS <font style=color:#cccccc;>" + tracks + "</font></p><p>DESCRIPTION <font style=color:#cccccc;>" + description + "</font></p><p>FIRES <font style=color:#cccccc;>" + upvotes + "</font></p><p>BURIES <font style=color:#cccccc;>" + downvotes + "</font></p></div><div class=span1 style=width:50px;><button id=like data-id=" + id + " style=background:" + upvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/fire_white.png></button></div><div class=span1 style=margin-left:5px;><button id=dislike data-id=" + id + " style=background:" + downvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/water_white.png></button></div></div>");
+                $('#playlist_id').html("<form data-id=" + id + " id=refresh method=POST action=/ajax/playlist/addComment/" + id + "><input type=text placeholder='Write a comment' name=comment style=background:black;color:#cccccc;height:32px;width:829px;padding-left:10px;><button class=comment-button>Submit</button></form>");
+            }
+        },
+    });
+  }
+};
+
+$('#repic').live('submit', function(event) {
+    event.preventDefault();
+    var data = new FormData($('#repic').get(0));
+
+    $.ajax({
+        url: $('#repic').attr('action'),
+        type: $('#repic').attr('method'),
+        data: data,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            gui.home_gui.loadPlaylistInfo($('#repic').attr('data-id'));
+            $("#repic input").val("");
+        }
+    });
+    return false;
+});
+
+$('#refresh').live('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+        data: $('#refresh').serialize(),
+        type: "POST",
+        url: $('#refresh').attr('action'),
+        success: function(data) {
+            gui.home_gui.loadComments($('#refresh').attr('data-id'));
+            $("#refresh input").val("");
+        }
+    });
+});
 
 // Add song to now playing list
 HomeGui.prototype.addToNowplayingList = function() {
@@ -495,7 +619,8 @@ HomeGui.prototype.showList = function(list_object) {
     for (var i = 0; i < tracklist.length; i++) {
         html += gui.list_gui.trackHtml(tracklist[i], {
             "show_deletetrack": list_object.show_deletetrack,
-            "list": "search_list"
+            "list": "search_list",
+            "position": i+1
         });
     }
 

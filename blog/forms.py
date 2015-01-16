@@ -3,11 +3,6 @@ from django.forms.widgets import PasswordInput
 from django.contrib.auth.models import User
 	
 class UserForm(forms.Form):
-  image = forms.ImageField()
-  city = forms.CharField(max_length=100)
-  artist = forms.CharField(max_length=100)
-  genre = forms.CharField(max_length=100)
-  concert = forms.CharField(max_length=100)
   username = forms.CharField(max_length=20)
   email = forms.EmailField()
   password = forms.CharField(widget=PasswordInput, max_length=40)
@@ -18,3 +13,21 @@ class UserForm(forms.Form):
     except User.DoesNotExist:
       return self.cleaned_data['username']
     raise forms.ValidationError(u'Username taken.')
+
+
+class AddProfileImageForm(forms.Form):
+  image = forms.ImageField()
+
+
+class AddPlaylistImageForm(forms.Form):
+  image = forms.ImageField()
+
+
+class AddProfileForm(forms.Form):
+  city = forms.CharField(max_length=100)
+  artist = forms.CharField(max_length=100)
+  genre = forms.CharField(max_length=100)
+
+
+class CommentForm(forms.Form):
+  comment = forms.CharField(max_length=200)

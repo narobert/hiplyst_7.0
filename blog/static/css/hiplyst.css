@@ -14,6 +14,126 @@
 }
 
 /**
+ * Better organization for modules implemented
+ */
+
+.comment {
+  margin-left: 25px;
+  margin-bottom: -35px;
+}
+
+  .comment-button {
+    position: relative;
+    left: 773px;
+    bottom: 46px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: #ff8800;
+    color: white;
+    border-radius: 3px;
+    border: none;
+  }
+
+.playlist-button {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 65px;
+  padding-right: 65px;
+  background: #ff8800;
+  color: white;
+  border-radius: 3px;
+  border: none;
+}
+
+.commentBackground {
+  margin: 25px;
+  overflow-y: auto;
+  padding: 15px;
+  width: 815px;
+  height: 400px;
+  background: black;
+  border-radius: 4px;
+}
+
+#user {
+  cursor: pointer;
+  color: #cccccc;
+}
+  #user:hover {
+    text-decoration: underline;
+  }
+
+.comment1 {
+  margin-bottom: 20px;
+  padding-top: 7px;
+}
+
+.comment2 {
+  font-size: 14px;
+  color: #777777;
+}
+
+#playlist_info {
+  padding-left: 40px;
+  padding-top: 40px;
+  color: #777777;
+}
+
+.profile_info {
+  padding-left: 26px;
+  padding-top: 26px;
+  color: #777777;
+}
+
+.photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  border: 1px solid #272727;
+}
+
+.wrap {
+  position: relative;
+  width: 222px;
+  height: 245px;
+  border-radius: 3px; 
+  margin-bottom: 12px;
+}
+
+  .wrap:hover .upload {
+    visibility: visible;
+    opacity: 1;
+  }
+
+.upload {
+  padding-top: 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.photo_smaller {
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.photo_smaller:first-child {
+  margin-top: 5px;
+}
+
+/**
  * SoundManager 2 + useFlashBlock
  * ------------------------------
  * Flash positioning and flashblock / clicktoflash handling
@@ -605,6 +725,10 @@
             opacity: 0.8;
         }
 
+        .playing .track-play span {
+            display: none;
+        }
+
     .track {
       position: relative;
       border-bottom: 1px solid #252525;
@@ -636,13 +760,24 @@
             }
 
         .track-play {
-          position: absolute;
-          top: 12px;
-          left: 23px;
           width: 85%;
           height: 70%;
           cursor: pointer;
         }
+
+          .track-play span {
+            position: absolute;
+            top: 9px;
+            left: 24px;
+            color: #777777;
+            font-size: 13px;
+          }
+
+          .track-play img {
+            position: absolute;
+            top: 12px;
+            left: 20px;
+          }
 
         .track-title {
           position: absolute;
@@ -716,7 +851,7 @@
     .sidebar_view-dsc {
       float: left;
       position: absolute;
-      margin-left: 460px;
+      margin-left: 300px;
       margin-top: 13px;
       font-size: 13px;
       white-space: nowrap;
@@ -727,7 +862,7 @@
     .sidebar_view-subtitle {
       float: left;
       margin-top: 13px;
-      margin-left: 380px;
+      margin-left: 225px;
       position: absolute;
       font-size: 13px;
       color: #777777;
@@ -737,7 +872,7 @@
       cursor: pointer;
       float: left;
       margin-top: 7px;
-      margin-left: 225px;
+      margin-left: 570px;
       position: absolute;
       font-size: 13px;
       color: #cccccc;
@@ -792,7 +927,7 @@
     .mysidebar_view-subtitle {
       float: left;
       margin-top: 12px;
-      margin-left: 298px;
+      margin-left: 201px;
       position: absolute;
       font-size: 13px;
       color: #777777;
@@ -802,7 +937,7 @@
       float: left;
       display: none;
       margin-top: 14px;
-      margin-left: 330px;
+      margin-left: 230px;
       cursor: pointer;
       position: absolute;
       font-size: 13px;
@@ -912,6 +1047,10 @@
   padding-left: 0px;
   z-index: 100;
 }
+
+    #playlist_tracks .track:last-child {
+      border-bottom: 1px solid #272727;
+    }
 
     #playlist_tracks .track {
       width: 100%;

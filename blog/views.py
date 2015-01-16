@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from .forms import UserForm
 from annoying.decorators import ajax_request, render_to
 from blog.models import AccessTokens, Image
-from playlists.models import Profile
+from playlists.models import Profile, Playlist, Upvote, Downvote
 
 def full(request):
   images = Image.objects.all()
@@ -33,10 +33,16 @@ def register(request):
       newuser.first_name = fname
       newuser.last_name = lname
       newuser.save()
-      newimg = Image.objects.create(user = newuser, path = form.cleaned_data['image'])
-      newimg.save()
-      newprofile = Profile.objects.create(user = newuser, artists = form.cleaned_data['artist'], genres = form.cleaned_data['genre'], concerts = form.cleaned_data['concert'], location = form.cleaned_data['city'], image = newimg)
+      newprofile = Profile.objects.create(user = newuser, artists = None, genres = None, location = None, image = None)
       newprofile.save()
+
+      playlist_list = Playlist.objects.all()
+      for playlists in playlist_list:
+        upvote = Upvote.objects.create(user=newuser, upvoted=False, playlist=playlists, button_color=30)
+        downvote = Downvote.objects.create(user=newuser, downvoted=False, playlist=playlists, button_color=30)
+        upvote.save()
+        downvote.save()
+
       user = authenticate(username=name, password=pw)
       auth_login(request, user)
       return HttpResponseRedirect('/')

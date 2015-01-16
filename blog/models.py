@@ -11,6 +11,14 @@ class Image(models.Model):
         return {"path": str(self.path)}
 
 
+class Picture(models.Model):
+    paths = models.ImageField(upload_to='%Y/%m/%d')
+    user = models.ForeignKey(User)
+
+    def for_json(self):
+        return {"paths": str(self.paths)}
+
+
 class AccessTokens(models.Model):
     id = models.AutoField('#', primary_key=True)
     token = models.CharField(u"Token", max_length=100)

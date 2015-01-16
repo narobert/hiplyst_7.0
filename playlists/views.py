@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
-from playlists.models import Upvote, Downvote, Playlist, PlaylistTracks, Ranking, Profile
+from playlists.models import Upvote, Downvote, Playlist, PlaylistTracks, Ranking, Profile, Comment
 from django.contrib.auth.models import User
-from blog.models import Image
+from blog.models import Image, Picture
 from annoying.decorators import ajax_request
+from blog.forms import AddProfileForm, AddProfileImageForm, AddPlaylistImageForm, CommentForm
 from django.http import HttpResponseRedirect, HttpResponse
 import simplejson as json
 
@@ -35,6 +37,77 @@ def viewButtons(request):
     upvotes = [pl.for_json() for pl in upvote_objects]
     downvotes = [pl.for_json() for pl in downvote_objects]
     return {"status": "OK", "upvote": upvotes, "downvote": downvotes}
+
+
+def addProfileImage(request):
+    if request.method == 'POST':
+        form = AddProfileImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = Profile.objects.get(user=request.user)
+            newimg = Image.objects.create(user = request.user, path = form.cleaned_data['image'])
+            newimg.save()
+            profile.image = newimg
+            profile.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = AddProfileImageForm()
+    return render_to_response("after_login.html", {'form':form})
+
+
+def addPlaylistImage(request, id):
+    if request.method == 'POST':
+        form = AddPlaylistImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            newpic = Picture.objects.create(user = request.user, paths = form.cleaned_data['image'])
+            newpic.save()
+            playlist = Playlist.objects.get(id=id)
+            playlist.picture = newpic
+            playlist.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = AddPlaylistImageForm()
+    return render_to_response("after_login.html", {'form':form})
+
+
+def addProfile(request):
+    if request.method == 'POST':
+        form = AddProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = Profile.objects.get(user=request.user)
+            profile.artists = form.cleaned_data['artist']
+            profile.genres = form.cleaned_data['genre']
+            profile.location = form.cleaned_data['city']
+            profile.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = AddProfileForm()
+    return render(request, 'after_login.html', {'form':form})
+
+
+def addComment(request, id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            playlist = Playlist.objects.get(id=id)
+            profile = Profile.objects.get(user = request.user)
+            comment = Comment.objects.create(user = request.user, title = form.cleaned_data['comment'], playlist=playlist, profile=profile)
+            comment.save()
+            return HttpResponseRedirect('/#home')
+    else:
+        form = CommentForm()
+    return render(request, 'after_login.html', {'form':form})
+
+
+@ajax_request
+@login_required
+def getComments(request):
+    id = request.POST.get("id")
+    playlist = Playlist.objects.get(id=id)
+
+    comments = Comment.objects.filter(user=playlist.user, playlist=playlist)
+    commenters = [pl.for_json() for pl in comments]
+
+    return {"status": "OK", "commented": commenters}
 
 
 @ajax_request
@@ -93,6 +166,22 @@ def profile(request):
 
 @ajax_request
 @login_required
+def playlistInfo(request):
+    id = request.POST.get("id")
+    playlist = Playlist.objects.get(id=id)
+
+    upvote_objects = Upvote.objects.get(user=request.user, playlist=playlist)
+    downvote_objects = Downvote.objects.get(user=request.user, playlist=playlist)
+
+    upvotes = [upvote_objects.for_json()]
+    downvotes = [downvote_objects.for_json()]
+    playlists = [playlist.for_json()]
+
+    return {"status": "OK", "playlists": playlists, "upvotes": upvotes, "downvotes": downvotes}
+
+
+@ajax_request
+@login_required
 def new(request):
     name = request.POST.get("name")
     dsc = request.POST.get("dsc")
@@ -100,7 +189,7 @@ def new(request):
         return {"status": "NeOK", "message": u"No specified playlist name"}
 
     profile = Profile.objects.get(user=request.user)
-    playlist = Playlist.objects.create(user=request.user, title=name, description=dsc, profile=profile)
+    playlist = Playlist.objects.create(user=request.user, title=name, description=dsc, profile=profile, picture=None)
     
     user_list = User.objects.all()
     for users in user_list:
