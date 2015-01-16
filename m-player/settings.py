@@ -7,8 +7,6 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-ROOT_URL = '/Users/narobert/postd/'
-
 MANAGERS = ADMINS
 
 DATABASES = {
