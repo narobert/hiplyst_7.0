@@ -39,48 +39,48 @@ function PlaylistsGui() {
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
-        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
-        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:44px;"><img style="width:40px;height:40px;border-radius:3px;border:1px solid #1b1b1b;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:1px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{like}}</p></div></div></div>' +
+        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{dislike}}</p></div></div></div>' +
     '</div>';
     this.playlist_hot_template = '<div class="sidebar_view-item">' +
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
-        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
-        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:44px;"><img style="width:40px;height:40px;border-radius:3px;border:1px solid #1b1b1b;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:1px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{like}}</p></div></div></div>' +
+        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{dislike}}</p></div></div></div>' +
     '</div>';
     this.playlist_trending_template = '<div class="sidebar_view-item">' +
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
-        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{like}}</p></div></div></div>' +
-        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:5px;">{{dislike}}</p></div></div></div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:44px;"><img style="width:40px;height:40px;border-radius:3px;border:1px solid #1b1b1b;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:1px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_upvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{like}}</p></div></div></div>' +
+        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><div id=button_downvote{{id}}></div></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{dislike}}</p></div></div></div>' +
     '</div>';
     this.username_profile_template = '<p>FAVORITE ARTISTS <font style="color:#cccccc;">{{profile_artists}}</font></p>' +
         '<p>FAVORITE GENRES <font style="color:#cccccc;">{{profile_genres}}</font></p>' +
         '<p>UPLOADED LYRICS <font style="color:#cccccc;">no</font></p>' +
         '<p>UPLOADED ALBUM ART <font style="color:#cccccc;">no</font></p>';
-    this.username_picture_template = '<div class="span3" style="width:260px;><img class="photo" src="/media/{{imager}}"></div>';
+    this.username_picture_template = '<div class="span3" style="width:320px;><img class="photo" style="margin-left:40px;" src="/media/{{imager}}"></div>';
     this.username_rank_template = '<p>RANK <font style="color:#cccccc;">{{ranker}}</font></p>';
     this.playlist_username_template = '<h4><font style="color:#cccccc;">{{pos}}</font></h4>';
     this.playlist_profile_template = '<div class="sidebar_view-item">' +
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
-        '<div style="margin-left:750px;position:absolute;font-size:12px;">{{like}}</div>' +
-        '<div style="margin-left:825px;position:absolute;font-size:12px;">{{dislike}}</div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:44px;"><img style="width:40px;height:40px;border-radius:3px;border:1px solid #1b1b1b;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:1px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><button style=margin-top:14px;margin-left:-15px;background:black; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/fire_white.png></button></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{like}}</p></div></div></div>' +
+        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><button style=margin-top:14px;margin-left:-15px;background:black; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/water_white.png></button></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{dislike}}</p></div></div></div>' +
     '</div>';
     this.playlist_myprofile_template = '<div class="sidebar_view-item">' +
         '<div class="sidebar_view-title" data-id="{{id}}"><p>{{title}}</p></div>' +
         '<div class="sidebar_view-subtitle">{{tracks}} songs</div>' +
         '<div class="sidebar_view-dsc" data-id="{{id}}">{{description}}</div>' +
-        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:35px;"><img style="width:32px;height:32px;border-radius:3px;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:-3px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
-        '<div style="margin-left:750px;position:absolute;font-size:12px;">{{like}}</div>' +
-        '<div style="margin-left:825px;position:absolute;font-size:12px;">{{dislike}}</div>' +
+        '<div class="sidebar_view-username" data-id="{{id}}"><div class="row"><div class="span1" style="width:44px;"><img style="width:40px;height:40px;border-radius:3px;border:1px solid #1b1b1b;" src="media/{{image}}"></div><div class="span1" style="width:100px;margin-left:8px;margin-top:1px;"><p>{{creator}}</p><p style="margin-top:-14px;color:#777777;">{{location}}</p></div></div></div>' +
+        '<div style="margin-left:750px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><button style=margin-top:14px;margin-left:-15px;background:black; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/fire_white.png></button></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{like}}</p></div></div></div>' +
+        '<div style="margin-left:825px;position:absolute;font-size:12px;"><div class="row"><div class="span1" style="width:5px;"><button style=margin-top:14px;margin-left:-15px;background:black; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/water_white.png></button></div><div class="span1" style="width:30px;"><p style="margin-top:7px;">{{dislike}}</p></div></div></div>' +
     '</div>';
     this.myplaylist_template = '<div class="mysidebar_view-item">' +
         '<div class="mysidebar_view-title" data-id="{{id}}">{{title}}</div>' +
@@ -309,8 +309,8 @@ PlaylistsGui.prototype.viewButtons = function(id) {
               var upvote_color = upvotes.button_color;
               var downvotes = data["downvote"][0];
               var downvote_color = downvotes.button_color;
-              $('#button_upvote' + id + '').html("<button id=like data-id=" + id + " style=margin-top:7px;margin-left:-15px;background:" + upvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/fire_white.png></button>");
-              $('#button_downvote' + id + '').html("<button id=dislike data-id=" + id + " style=margin-top:7px;margin-left:-15px;background:" + downvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/water_white.png></button>");
+              $('#button_upvote' + id + '').html("<button id=like data-id=" + id + " style=margin-top:14px;margin-left:-15px;background:" + upvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/fire_white.png></button>");
+              $('#button_downvote' + id + '').html("<button id=dislike data-id=" + id + " style=margin-top:14px;margin-left:-15px;background:" + downvote_color + "; class=btn-small><img style=margin-top:4px;opacity:0.8; src=/images/water_white.png></button>");
             } else {
               $('#button_upvote').html("No buttons");
               $('#button_downvote').html("No buttons");

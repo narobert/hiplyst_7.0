@@ -104,7 +104,7 @@ def getComments(request):
     id = request.POST.get("id")
     playlist = Playlist.objects.get(id=id)
 
-    comments = Comment.objects.filter(user=playlist.user, playlist=playlist)
+    comments = Comment.objects.filter(playlist=playlist)
     commenters = [pl.for_json() for pl in comments]
 
     return {"status": "OK", "commented": commenters}

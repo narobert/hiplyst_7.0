@@ -15,7 +15,7 @@
 
     <style>
       body {
-        padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
+        padding-top: 100px; /* 60px to make the container go all the way to the bottom of the topbar */
         font-family: Gill Sans, sans-serif !important;
       }
     </style>
@@ -43,9 +43,9 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <form method="post" action="/login/" style="margin-top:15px;margin-bottom:0;">
-                <input id="id_username" type="text" name="username" maxlength="254" style="width:150px;margin-right:3px;background:black;color:white;" placeholder="Username" required>
-                <input id="id_password" type="password" name="password" maxlength="4096" style="width:150px;margin-right:3px;background:black;color:white;" placeholder="Password" required>
-                <button class="btn btn-primary" name="submit" type="submit" style="margin-top:-10px;background:#0088cc;">Sign in</button>
+                <input id="id_username" type="text" name="username" maxlength="254" style="margin-right:3px;background:black;color:#cccccc;padding-left:13px;margin-top:4px;margin-bottom:10px;height:32px;width:150px;" placeholder="Username" required>
+                <input id="id_password" type="password" name="password" maxlength="4096" style="margin-right:3px;background:black;color:#cccccc;padding-left:13px;margin-top:4px;margin-bottom:10px;height:32px;width:150px;"" placeholder="Password" required>
+                <button class="btn btn-large btn-primary" name="submit" type="submit" style="margin-top:-6px;background:#ff8800;border:none;border-radius:4px;">Sign in</button>
                 <input type="hidden" name="next" value="{{ next }}" />
               </form>
             </ul>	
@@ -67,7 +67,7 @@
     {% block additional_block %}
     {% endblock %}
 
-    <div class="footer" style="background:#1b1b1b;height:60px;width:100%;display:inline-block;z-index:100;border-top:1px solid #252525;">
+    <div class="footer" style="background:black;height:60px;width:100%;display:inline-block;z-index:100;border-top:1px solid #252525;">
     <p style="color:#cccccc;padding-top:20px;padding-left:56px;"><small>Hiplyst &copy; 2014 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="color:#777777;">About &nbsp;|&nbsp; Team &nbsp;|&nbsp; Contact us &nbsp;|&nbsp; How we rank &nbsp;|&nbsp; FAQ &nbsp;|&nbsp; Licensing &nbsp;|&nbsp; Copyright</font></small></p>
     </div>
 

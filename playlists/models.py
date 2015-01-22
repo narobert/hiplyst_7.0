@@ -41,10 +41,14 @@ class Playlist(models.Model):
         return PlaylistTracks.objects.filter(playlist=self).count()
 
     def for_json(self):
-        if self.picture is not None:
+        if self.picture and self.profile.image is not None:
             return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location, "image": str(self.profile.image.path), "picture": str(self.picture.paths)}
-        else:
+        elif self.picture is not None:
+            return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location, "picture": str(self.picture.paths)}
+        elif self.profile.image is not None:
             return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location, "image": str(self.profile.image.path)}
+        else:
+            return {"_id": self.id, "name": self.title, "track_count": self.count, "userid": self.user.id, "dsc": self.description, "upvote": self.upvotes, "downvote": self.downvotes, "rank": self.rep, "owner": self.user.username, "location": self.profile.location}
 
 
 class Ranking(models.Model):
@@ -71,7 +75,7 @@ class Upvote(models.Model):
     NEUTRAL = 30
     BUTTON_COLORS = (
         (NEUTRAL, 'black'),
-        (LIKE, '#f90'), 
+        (LIKE, '#ff8800'), 
     )
 
     user = models.ForeignKey(User)
@@ -90,7 +94,7 @@ class Downvote(models.Model):
     NEUTRAL = 30
     BUTTON_COLORS = (
         (NEUTRAL, 'black'),
-        (DISLIKE, '#0088cc'), 
+        (DISLIKE, '#0081c2'), 
     )
 
     user = models.ForeignKey(User)

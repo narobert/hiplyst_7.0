@@ -1,6 +1,36 @@
 /* INFO BOX
 ----------------------------- */
 
+.preview {
+  width: 400px;
+  height: 380px;
+  margin-top: 40px;
+}
+
+.front {
+  width: 500px;
+  overflow: hidden;
+}
+
+.preview1 {
+  width: 210px;
+  border-radius: 4px;
+  margin-right: 40px;
+  padding: 10px;
+  float: left;
+  color: black;
+  height: 65px;
+  background: white;
+}
+
+.preview2 {
+  border-radius: 4px;
+  height: 68px;
+  padding-top: 17px;
+  overflow: hidden;
+  background: white;
+}
+
 .not_transparent {
   position: absolute;
   height: 593px; 
@@ -11,7 +41,7 @@
 
 .transparent_box {
   position: absolute;
-  height: 573px;
+  height: 593px;
   width: 100%;
   background: black;
   opacity: 0.4;

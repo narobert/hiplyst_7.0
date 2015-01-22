@@ -12,102 +12,31 @@
         <div class="item active">
           <img src="/images/guitar.jpg">
           <div class="transparent_box"></div>
-            <div class="not_transparent">
-              <center>
-              <div class="alert">Incorrect username or password.</div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h1></h1>
-                <br>
-                <br>   
-                <br>
-              </center>
+          <div class="not_transparent">
+            <center>
+            <div class="alert">Incorrect username or password.</div>
+            <div class="preview">
+              <h3>Sign up</h2>
+              <form method="POST" action="/register/" enctype="multipart/form-data"> 
+                <div>
+                  <input type="text" style="background:black;color:#cccccc;padding-left:13px;margin-top:8px;height:35px;width:150px;" name="fname" maxlength="20" placeholder="First name" required>
+                  <input type="text" style="background:black;color:#cccccc;padding-left:13px;margin-top:8px;height:35px;width:150px;" name="lname" maxlength="20" placeholder="Last name" required>
+                </div>
+                <input type="text" style="background:black;color:#cccccc;padding-left:13px;height:35px;width:323px;" name="username" maxlength="20" placeholder="Username" required>
+                <input name="email" type="email" style="background:black;color:#cccccc;padding-left:13px;height:35px;width:323px;" placeholder="Email" required>
+                <input type="password" style="background:black;color:#cccccc;padding-left:13px;height:35px;width:323px;margin-bottom:10px;" name="password" maxlength="40" placeholder="Password" required>
+                <p><button class="btn btn-large btn-primary" style="width:344px;background:#ff8800;border:none;border-radius:4px;" name="submit" type="submit">Register</button></p>
+              </form>
+            </div>
+            <div class="front">
+              <div class="preview1"><img src="/images/list_big.png"></div>
+              <div class="preview2"><img src="/images/headphones.png"></div>
+            </div>
+            </center>
           </div>
         </div>
       </div>
     </div><!-- /.carousel -->
-
-  <!-- Carousel large ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
-      <div class="carousel-inner">
-        <div class="item active" style="background: url('../images/white.jpg');">
-          <div class="transparent_box"></div>
-            <div class="not_transparent">
-              <form method="POST" action="/register/" enctype="multipart/form-data" style="margin-top:55px;"> 
-                <div>
-                  <label for="id_first_name"></label>
-                  <input id="id_first_name" type="text" style="float:left;margin-bottom:5px;height:32px;width:140px;margin-left:475px;margin-right:6px;" name="fname" maxlength="20" placeholder="First name" required>
-                  <label for="id_last_name"></label>
-                  <input id="id_last_name" type="text" style="margin-bottom:5px;height:32px;width:140px;" name="lname" maxlength="20" placeholder="Last name" required>
-                </div>
-                <center>
-                <label for="id_username"></label>
-                <input id="id_username" type="text" style="margin-bottom:5px;height:32px;width:300px;" name="username" maxlength="20" placeholder="Username" required>
-                <label for="id_email"></label>
-                <input id="id_email" name="email" type="email" style="margin-bottom:5px;height:32px;width:300px;" placeholder="Email" required>
-                <label for="id_password"></label>
-                <input id="id_password" type="password" style="margin-bottom:5px;height:32px;width:300px;" name="password" maxlength="40" placeholder="Password" required>
-                <p><button class="btn btn-large btn-primary" style="width:314px;background:#0088cc;border:none;border-radius:4px;" name="submit" type="submit">Register</button></p>
-              </form>   
-              </center>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Carousel large ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="/images/one.jpg">
-          <div class="transparent_box"></div>
-            <div class="not_transparent">
-              <center>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h1></h1>
-                <br>
-                <br>   
-                <br>
-              </center>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Carousel large ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;margin-bottom:-4px;">
-      <div class="carousel-inner">
-        <div class="item active" style="background: url('../images/bg-lion.jpg');">
-          <center>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <h1></h1>
-            <br>
-            <br>   
-            <br>
-          </center>
-        </div>
-      </div>
-    </div>
 
 {% endblock %}
 

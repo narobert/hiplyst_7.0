@@ -83,8 +83,7 @@
 }
 
 .profile_info {
-  padding-left: 26px;
-  padding-top: 26px;
+  padding-top: 40px;
   color: #777777;
 }
 
@@ -93,7 +92,7 @@
   height: 220px;
   border-radius: 3px;
   margin-bottom: 20px;
-  border: 1px solid #272727;
+  border: 1px solid #1b1b1b;
 }
 
 .wrap {
@@ -128,6 +127,7 @@
   margin-left: 5px;
   cursor: pointer;
   border-radius: 3px;
+  border: 1px solid #1b1b1b;
 }
 .photo_smaller:first-child {
   margin-top: 5px;
@@ -782,7 +782,7 @@
         .track-title {
           position: absolute;
           top: 9px;
-          left: 63px;
+          left: 61px;
           font-size: 13px;
           cursor: pointer;
           white-space: nowrap;
@@ -798,7 +798,7 @@
         .track-artist {
           position: absolute;
           top: 9px;
-          left: 341px;
+          left: 339px;
           cursor: pointer;
           font-size: 13px;
           color: #777777;
@@ -824,11 +824,11 @@
       width: 100%;
       border-top: solid 1px #252525;
       position: relative;
-      height: 46px;
+      height: 60px;
       color: #777777;
     }
     .sidebar_view-item:last-child {
-      border-bottom: solid 1px #252525;
+      border-bottom: none;
     }
 
         .sidebar_view-item:hover {
@@ -839,7 +839,7 @@
       height: 33px;
       float: left;
       width: 100%;
-      padding-top: 13px;
+      padding-top: 19px;
       margin-left: 27px;
       cursor: pointer;
       font-size: 13px;
@@ -852,7 +852,7 @@
       float: left;
       position: absolute;
       margin-left: 300px;
-      margin-top: 13px;
+      margin-top: 19px;
       font-size: 13px;
       white-space: nowrap;
       overflow: hidden;
@@ -861,7 +861,7 @@
 
     .sidebar_view-subtitle {
       float: left;
-      margin-top: 13px;
+      margin-top: 19px;
       margin-left: 225px;
       position: absolute;
       font-size: 13px;
@@ -871,7 +871,7 @@
     .sidebar_view-username {
       cursor: pointer;
       float: left;
-      margin-top: 7px;
+      margin-top: 9px;
       margin-left: 570px;
       position: absolute;
       font-size: 13px;
@@ -955,7 +955,7 @@
 .list-buttons {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 702px;
+  margin-left: 750px;
   position: relative;
   white-space: nowrap;
 }
